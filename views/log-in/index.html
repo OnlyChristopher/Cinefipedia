@@ -10,7 +10,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/log-in.css">
     <title>Hello, world!</title>
   </head>
   <body>
@@ -42,20 +42,20 @@
                 </div>
               </div>
               <div class="text-center">
-                <button id="start-login-facebook" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></button>
-                <button id="start-login-google" type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i></button>
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" id="gridCheck1">
                   <label class="form-check-label" for="gridCheck1">
                     Acepto <a href="#">Terminos y Condiciones</a>
                   </label>
-                  <p id="showSignUp"></p>
                 </div>
+                <p id="showSignUp"></p>
+                <button id="start-login-facebook" type="button" class="btn btn-info btn-circle btn-lg"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></button>
+                <button id="start-login-google" type="button" class="btn btn-danger btn-circle btn-lg"><i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i></button>
               </div>
             </form>
           </div>
           <div class="modal-footer">
-            <button onclick="registrar()" type="submit" class="btn btn-primary">Registrarse</button>
+            <button id="btn-sign-up" onclick="registrar()" type="submit" class="btn btn-primary" disabled>Registrarse</button>
           </div>
         </div>
       </div>
@@ -88,25 +88,18 @@
             </form>
           </div>
           <div class="modal-footer">
-            <button onclick="ingreso()" type="submit" class="btn btn-primary">Ingresar</button>
-
+            <button id="btn-log-in" onclick="ingreso()" type="submit" class="btn btn-primary" disabled>Ingresar</button>
           </div>
         </div>
       </div>
     </div>
-
-
-
-
-
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
     <!-- Plataforma Firebase -->
     <script src="https://www.gstatic.com/firebasejs/4.8.2/firebase.js"></script>
-    <script type="text/javascript" src="../../js/app.js">
+    <script type="text/javascript" src="../../js/log-in.js">
 
     </script>
   </body>

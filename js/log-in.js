@@ -31,7 +31,7 @@ $('#myModal').modal('show')
         //mostramos su contenido
         console.log(user1);
         //ocultamos el div de login
-        window.location.href = 'home/index.html';
+        window.location.href = '../home/index.html';
       });
     };
 
@@ -54,7 +54,7 @@ $('#myModal').modal('show')
           var token = result.credential.accessToken;
           // The signed-in user info.
           var user = result.user;
-          window.location.href = 'home/index.html';
+          window.location.href = '../home/index.html';
         })
         .catch(function(error) {
         // Handle Errors here.
@@ -103,12 +103,68 @@ $('#myModal').modal('show')
 
   };
 
+//Validando datos del Email
+function begin() {
+  function emailValid() {
+    return !$('#email').hasClass('invalid') && ($('#email').val().trim().length !== 0);
+  };
+
+  function passwordValid() {
+      return $('#password').val().length >= 6;
+  };
+
+  function checkboxValid() {
+      return $('#gridCheck1').prop('checked');
+  };
+
+  function allOk() {
+     return emailValid() && passwordValid();
+  };
+
+  $('#gridCheck1').on('change', function() {
+    if (allOk()) {
+      $('#btn-sign-up').removeAttr('disabled');
+    } else {
+      $(this).prop('checked', false);
+    }
+  });
+
+  $('#btn-sign-up').on('click', function() {
+    //$(location).attr('href', '../home/index.html');
+    $('#showSignUp').text('Ya estas registrado, ahora inicia Sesión.');
+  });
+  //validacciones para el log-in con cemail
+  function emailAcces() {
+    return !$('#email2').hasClass('invalid') && ($('#email').val().trim().length !== 0);
+  };
+
+  function passwordAcces() {
+      return $('#password2').val().length >= 6;
+    };
+
+  function allOkAcces() {
+    return emailAcces() && passwordAcces();
+  };
+
+  $('#password2').on('keyup', function() {
+      if (allOkAcces()) {
+        $('#btn-log-in').removeAttr('disabled');
+      }
+    });
+
+  $('#btn-log-in').on('click', function() {
+    $('#btn-log-in').attr('href', '../home/index.html');
+  });
+}
+
+$(document).ready(begin);
+
 // Vinculando con Email
 function registrar() {
-  var email = document.getElementById('email').value;
-  var contrasena = document.getElementById('password').value;
+  var email = $('#email').val();
+  var password = $('#password').val();
 
-  firebase.auth().createUserWithEmailAndPassword(email, contrasena).catch(function(error) {
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -116,12 +172,12 @@ function registrar() {
   console.log(errorMessage);
   // ...
 });
-}
+};
 
 function ingreso() {
-  var email2 = document.getElementById('email2').value;
-  var contrasena2 = document.getElementById('password2').value;
-  firebase.auth().signInWithEmailAndPassword(email2, contrasena2).catch(function(error) {
+  var email2 = $('#email2').val();
+  var password2 = $('#password2').val();
+  firebase.auth().signInWithEmailAndPassword(email2, password2).catch(function(error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
@@ -129,7 +185,7 @@ function ingreso() {
     console.log(errorMessage);
     // ...
   });
-  window.location.href = 'home/index.html';
+  window.location.href = '../home/index.html';
 };
 
 function observador() {
@@ -158,7 +214,7 @@ observador();
 
 /*------------direccionar a html -------------------*/
 function aparece() {
-  var showSignUp = document.getElementById('showSignUp');
+  var showSignUp = $('#showSignUp');
   showSignUp.innerHTML = 'solo lo ve usuario activo';
   /*  window.location.href = 'views/home/index.html';*/
 };
