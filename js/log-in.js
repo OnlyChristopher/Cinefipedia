@@ -31,7 +31,7 @@ $('#myModal').modal('show')
         //mostramos su contenido
         console.log(user1);
         //ocultamos el div de login
-        window.location.href = 'home/index.html';
+        window.location.href = '../home/index.html';
       });
     };
 
@@ -54,7 +54,7 @@ $('#myModal').modal('show')
           var token = result.credential.accessToken;
           // The signed-in user info.
           var user = result.user;
-          window.location.href = 'home/index.html';
+          window.location.href = '../home/index.html';
         })
         .catch(function(error) {
         // Handle Errors here.
@@ -129,7 +129,7 @@ function ingreso() {
     console.log(errorMessage);
     // ...
   });
-  window.location.href = 'home/index.html';
+  window.location.href = '../home/index.html';
 };
 
 function observador() {
