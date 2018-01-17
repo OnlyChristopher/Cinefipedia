@@ -1,16 +1,16 @@
-# Hackathon-Movie
+# **Hackathon-Movie**
 
 
-## Objetivo
+### Objetivo
 Crear un producto relacionado a películas respondiendo a las necesidades del usuario.
 
-## Organización
+### Organización
 
 1.- Identificamos temática y posibles oportunidades de mejora.
 
 ![Con titulo](assets/docs/1.jpg "titulo")
 
-2.- Ivestigación en la diferentes páginas de contenido similar.
+2.- Investigación en la diferentes páginas de contenido similar.
 
 ![Con titulo](assets/docs/2.jpg "titulo")
 
@@ -43,14 +43,14 @@ Crear un producto relacionado a películas respondiendo a las necesidades del us
  ![Con titulo](assets/docs/12.png "titulo")
 
 
-## ¿Qué se requiere?
+### ¿Qué se requiere?
  * Trabajar en grupo
  * Tener una planificación
  * La definición del diseño
  * Ventaja diferencial
 
 
-## PLAN SKETCH
+### PLAN SKETCH
 
 ![Imagen 1][1]  ![Imagen 2][2]  ![Imagen 3][3]
 
@@ -58,14 +58,14 @@ Crear un producto relacionado a películas respondiendo a las necesidades del us
  [2]: assets/docs/8.jpg
  [3]: assets/docs/9.jpg
 
-## Archivos adjuntos en repositorio
+### Archivos adjuntos en repositorio
 
 1. **Carpeta assets** contiene imagenes
 2. **Carpeta app** contiene archivo app.js en el cuál se ecuentra el código de la función con el lenguaje Javascript.    
 3. **archivo index.html** está vinculado con app.js, el usuario podrá acceder a la función mediante este archivo.
 4. **README.md** contiene pseudocódigo de la función de la pagina web.
 
-## Vistas de la pagina web
+### Vistas de la pagina web
 * SPLASH
 
  ![Con titulo](assets/docs/foto.png "titulo")
@@ -78,14 +78,14 @@ Crear un producto relacionado a películas respondiendo a las necesidades del us
 
  ![Con titulo](assets/docs/foto3.png "titulo")
 
-* MENU DE HAMBURGUESA
+* MENÚ DE HAMBURGUESA
 
  ![Con titulo](assets/docs/foto4.png "titulo")
 
 * SECCIÓN REGISTRARTE
 
  ![Con titulo](assets/docs/foto5.png "titulo")
-### Squad
+#### Squad 1
 
 
 * Karina Julissa Buhezo Flores
