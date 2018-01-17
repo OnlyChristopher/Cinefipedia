@@ -14,7 +14,8 @@ Crear un producto relacionado a películas respondiendo a las necesidades del us
 
 ![Con titulo](assets/docs/2.jpg "titulo")
 
-3.- Realizamos brainstorming para el funcionamiento de la página web con sketches.  
+3.- Realizamos brainstorming para el funcionamiento de la página web con sketches y post-it.
+
 ![Con titulo](assets/docs/3.jpg "titulo")
 
 4.- Búsquedas y propuestas para el nombre de la página web.
@@ -23,14 +24,19 @@ Crear un producto relacionado a películas respondiendo a las necesidades del us
 
 5.- Se realiza encuestas para identificar necesidas y datos relevantes para el contenido del producto.  
 
- ![Con titulo](assets/docs/13.png "titulo")
+ ![Con titulo](assets/docs/form1.png "titulo")
+
+ ![Con titulo](assets/docs/form2.png "titulo")
 
 6.-  Organización y repartición de tareas en
+
  [trello](https://trello.com/b/93M6aCG5/hackaton-laboratoria-2018)
 
  ![Con titulo](assets/docs/10.png "titulo")
 
 7.- Definición de herramientas a utilizar (Bootstrap 4, Firebase, API de contenido)
+
+![Con titulo](assets/docs/6.jpg "titulo")
 
 8.- Creación de GitHub colaborativo.
 
