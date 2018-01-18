@@ -33,8 +33,7 @@ $(document).ready(() => {
   // obtner peliculas segun el genero seleccionado
   function searchDataGenre() {
     var codeGenre = $(this).attr('data-code');
-    var nameSectionTab = '#' + $(this).attr('aria-controls');
-    var idContentTab = '#' + nameSectionTab;
+    var nameSectionTab = '.' + $(this).attr('aria-controls');
     console.log(codeGenre);
     console.log(nameSectionTab);
     $.getJSON('https://api.themoviedb.org/3/discover/movie?with_genres=' + codeGenre + '&api_key=5076f0f992d07860e10ee70c4f034e5e')
@@ -44,9 +43,9 @@ $(document).ready(() => {
         let moviesHtml = '';
         $.each(movies, (index, movie) => {
           moviesHtml += `
-          <div class="col-md-3">
-            <div class="well text-center">
-              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}">
+          <div class="col-6 col-sm-4 col-md-2">
+            <div class="text-center">
+              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid">
               <h5>${movie.title}</h5>
               <a class="selected-movie" data-id="${movie.id}" href="#">Movie Details</a>
             </div>
@@ -59,9 +58,9 @@ $(document).ready(() => {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
-          sessionStorage.setItem('movieId', id);
+          // sessionStorage.setItem('movieId', id);
           var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
-          // window.location.href = 'movie.html';
+          console.log(dataMovie);
           // return false;
         });
       }).catch((err) => {
