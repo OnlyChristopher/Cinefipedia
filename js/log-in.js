@@ -27,12 +27,26 @@ $('#myModal').modal('show')
       .signInWithPopup(provider1)
       .then(function(result) {
         //guardamos el usuario que nos trae resuslt
-        user = result.user1;
+        user1 = result.user;
         //mostramos su contenido
         console.log(user1);
         //ocultamos el div de login
         window.location.href = '../home/index.html';
       });
+      firebase.auth().onAuthStateChanged(function (user1) {
+        if (user1) {
+          // User is signed in.
+          firebase.database().ref('users/' + user1.uid).set({
+            email: user1.email,
+            name: user1.displayName,
+            uid: user1.uid,
+            profilePicture: user1.photoURL
+          })
+        } else {
+          // User is signed out.
+          console.log('usuario registrado correctamente');
+          }
+        });
     };
 
     // Registrando con facebook
@@ -54,7 +68,11 @@ $('#myModal').modal('show')
           var token = result.credential.accessToken;
           // The signed-in user info.
           var user = result.user;
+
+          console.log(user2);
+
           window.location.href = '../home/index.html';
+
         })
         .catch(function(error) {
         // Handle Errors here.
@@ -66,42 +84,22 @@ $('#myModal').modal('show')
         var credential = error.credential;
         // ...
         });
+        firebase.auth().onAuthStateChanged(function (user2) {
+          if (user2) {
+            // User is signed in.
+            firebase.database().ref('users/' + user2.uid).set({
+              email: user2.email,
+              name: user2.displayName,
+              uid: user2.uid,
+              profilePicture: user2.photoURL
+            })
+          } else {
+            // User is signed out.
+            console.log('usuario registrado correctamente');
+            }
+          });
 
-        firebase
-        .auth()
-        .getRedirectResult()
-        .then(function(result) {
-        if (result.credential) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
-          // ...
-        }
-        // The signed-in user info.
-        var user = result.user;
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-
-      //Cerrar sesion
-      firebase
-      .auth()
-      .signOut()
-      .then(function() {
-      // Sign-out successful.
-      })
-      .catch(function(error) {
-      // An error happened.
-    });
-
-  };
+        };
 
 //Validando datos del Email
 function begin() {
@@ -155,7 +153,7 @@ function begin() {
   $('#btn-log-in').on('click', function() {
     $('#btn-log-in').attr('href', '../home/index.html');
   });
-}
+};
 
 $(document).ready(begin);
 
@@ -172,6 +170,20 @@ function registrar() {
   console.log(errorMessage);
   // ...
 });
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    // User is signed in.
+    firebase.database().ref('users/' + user.uid).set({
+      email: user.email,
+      name: user.displayName,
+      uid: user.uid,
+      profilePicture: user.photoURL
+    })
+  } else {
+    // User is signed out.
+    console.log('usuario registrado correctamente');
+    }
+  });
 };
 
 function ingreso() {
@@ -187,13 +199,15 @@ function ingreso() {
   });
   window.location.href = '../home/index.html';
 };
+var $imageUser = $('#img-user');
+var $nameUser = $('#name-user');
 
 function observador() {
 
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
       console.log('existe usuario');
-      aparece();
+      //aparece();
       // User is signed in.
       var displayName = user.displayName;
       var email = user.email;
@@ -202,6 +216,8 @@ function observador() {
       var isAnonymous = user.isAnonymous;
       var uid = user.uid;
       var providerData = user.providerData;
+      $imageUser.attr('src', photoURL);
+      $nameUser.text(displayName);
       // ...
     } else {
       // User is signed out.
@@ -212,9 +228,47 @@ function observador() {
 
 observador();
 
+var $usersconect = $('.users');
+
+// Mustra en pantalla los datos a publicar con los datos almacenados en firebase
+firebase.database().ref('connected').on('value', function(snapshot) {
+  var html = '';
+  snapshot.forEach(function(e) {
+    var element = e.val();
+    var name = element.name;
+    var email = element.email;
+    html += '<li>' +
+      '<img src="../assets/images/active.png" class="responsive-image" alt="active" width="10px">' +
+      ' ' + name + ' </li>';
+  });
+  $($usersconect).append(html);
+});
 /*------------direccionar a html -------------------*/
-function aparece() {
+/*function aparece() {
   var showSignUp = $('#showSignUp');
   showSignUp.innerHTML = 'solo lo ve usuario activo';
   /*  window.location.href = 'views/home/index.html';*/
-};
+//};
+
+/*___________________ Uso de DataBase_______________*/
+// Fetch the service account key JSON file contents
+//FileInputStream serviceAccount = new FileInputStream("path/to/serviceAccountCredentials.json");
+
+// Initialize the app with a service account, granting admin privileges
+/*FirebaseOptions options = new FirebaseOptions.Builder()
+    .setCredential(FirebaseCredentials.fromCertificate(serviceAccount))
+    .setDatabaseUrl("https://hackaton-a97af.firebaseio.com")
+    .build();
+FirebaseApp.initializeApp(options);
+
+// As an admin, the app has access to read and write all data, regardless of Security Rules
+DatabaseReference ref = FirebaseDatabase
+    .getInstance()
+    .getReference("restricted_access/secret_document");
+ref.addListenerForSingleValueEvent(new ValueEventListener() {
+    @Override
+    public void onDataChange(DataSnapshot dataSnapshot) {
+        Object document = dataSnapshot.getValue();
+        System.out.println(document);
+    }
+});*/
