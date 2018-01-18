@@ -46,6 +46,7 @@ $(document).ready(() => {
           console.log('hice click');
           var id = $(this).attr('data-id');
           sessionStorage.setItem('movieId', id);
+          var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
           // window.location.href = 'movie.html';
           // return false;
         });
