@@ -7,8 +7,14 @@ $('#menu-toggle').click(function(event) {
 $(document).ready(() => {
   // obteniendo elementos del DOM
   var inputSearch = $('#searchForm');
-  var itemDrama = $('#drama');
-  var itemAction = $('#action');
+  var itemDrama = $('.drama');
+  var itemAction = $('.action');
+  var itemAdventure = $('.adventure');
+  var itemAnimation = $('.animation');
+  var itemComedy = $('.comedy');
+  var itemHorror = $('.horror');
+  var itemRomance = $('.romance');  
+  
   // asociando eventos a elementos del DOM
   inputSearch.on('submit', (event) => {
     event.preventDefault();
@@ -18,11 +24,19 @@ $(document).ready(() => {
 
   itemDrama.on('click', searchDataGenre);
   itemAction.on('click', searchDataGenre);
+  itemAdventure.on('click', searchDataGenre);
+  itemAnimation.on('click', searchDataGenre);
+  itemComedy.on('click', searchDataGenre);
+  itemHorror.on('click', searchDataGenre);
+  itemRomance.on('click', searchDataGenre);  
 
   // obtner peliculas segun el genero seleccionado
   function searchDataGenre() {
     var codeGenre = $(this).attr('data-code');
+    var nameSectionTab = '#' + $(this).attr('aria-controls');
+    var idContentTab = '#' + nameSectionTab;
     console.log(codeGenre);
+    console.log(nameSectionTab);
     $.getJSON('https://api.themoviedb.org/3/discover/movie?with_genres=' + codeGenre + '&api_key=5076f0f992d07860e10ee70c4f034e5e')
       .then((result) => {
         console.log(result);
@@ -39,7 +53,7 @@ $(document).ready(() => {
           </div>
         `;
         });
-        $('#movies').html(moviesHtml);
+        $(nameSectionTab).html(moviesHtml);
         console.log($('.selected-movie'));
         $('.selected-movie').click(function(event) {
           event.preventDefault();
