@@ -1,6 +1,6 @@
 body {
   overflow-x: hidden;
-  background-color: black;
+  background-color: #343A40;
 }
 
 #wrapper {
@@ -9,6 +9,7 @@ body {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+
 }
 
 #wrapper.toggled {
@@ -23,7 +24,7 @@ body {
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: #000;
+  background: #343A40;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -38,6 +39,7 @@ body {
   width: 100%;
   position: absolute;
   padding: 15px;
+  margin-left: 10%;
 }
 
 #wrapper.toggled #page-content-wrapper {
