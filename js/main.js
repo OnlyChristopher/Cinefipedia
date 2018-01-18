@@ -13,8 +13,8 @@ $(document).ready(() => {
   var itemAnimation = $('.animation');
   var itemComedy = $('.comedy');
   var itemHorror = $('.horror');
-  var itemRomance = $('.romance');  
-  
+  var itemRomance = $('.romance');
+
   // asociando eventos a elementos del DOM
   inputSearch.on('submit', (event) => {
     event.preventDefault();
@@ -28,7 +28,7 @@ $(document).ready(() => {
   itemAnimation.on('click', searchDataGenre);
   itemComedy.on('click', searchDataGenre);
   itemHorror.on('click', searchDataGenre);
-  itemRomance.on('click', searchDataGenre);  
+  itemRomance.on('click', searchDataGenre);
 
   // obtner peliculas segun el genero seleccionado
   function searchDataGenre() {
@@ -70,7 +70,7 @@ $(document).ready(() => {
   };
 });
 
-// traer todas las peliculas relacionadas a lo que el usuario escribio en el input 
+// traer todas las peliculas relacionadas a lo que el usuario escribio en el input
 function getMovies(searchText) {
   $.getJSON('http://www.omdbapi.com?s=' + encodeURI(searchText) + '&apikey=bea6c355')
     .then((response) => {
