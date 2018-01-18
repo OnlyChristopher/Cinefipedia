@@ -131,4 +131,15 @@ body {
 /*Boton en desktop para menú lateral*/
 .b-desk {
   width: 20%;
+/* estilos de modal de peliculas */
+
+.modal-body, .close {
+  color: white;
 }
+
+b, .modal-title{
+  color: #47D7AC;
+}
+
+.modal-content{
+  background-color: black;
