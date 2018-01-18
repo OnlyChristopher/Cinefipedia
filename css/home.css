@@ -1,5 +1,6 @@
 body {
   overflow-x: hidden;
+  background-color: black;
 }
 
 #wrapper {
@@ -113,4 +114,11 @@ body {
     position: relative;
     margin-right: 0;
   }
+}
+
+/*Estilos de carrusel*/
+.carousel-item img {
+  object-fit: scale-down;
+  height: 50vh;
+  width: 100%;
 }
