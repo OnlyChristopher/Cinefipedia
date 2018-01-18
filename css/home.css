@@ -1,6 +1,6 @@
 body {
   overflow-x: hidden;
-  background-color: #1C1C1C;
+  background-color: #343A40;
 }
 
 #wrapper {
@@ -9,6 +9,7 @@ body {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+
 }
 
 #wrapper.toggled {
@@ -23,7 +24,7 @@ body {
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: #000;
+  background: #343A40;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -38,6 +39,7 @@ body {
   width: 100%;
   position: absolute;
   padding: 15px;
+  margin-left: 10%;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -128,17 +130,24 @@ body {
   margin-bottom: 5%;
 }
 
-/*Boton en desktop para menú lateral*/
-.b-desk {
-  width: 20%;
-}
-
 /*Estilos Nav*/
 
 .form-inline {
-  width: 20%;
+  flex-flow: nowrap;
 }
 
+a {
+  color: #47D7AC
+}
+
+a:hover {
+  color: white;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #343A40;
+  background-color: #47D7AC;
+}
 /* estilos de modal de peliculas */
 
 .modal-body, .close {
