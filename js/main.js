@@ -1,15 +1,58 @@
 // script sidebar toggled
-$("#menu-toggle").click(function (e) {
-  e.preventDefault();
-  $("#wrapper").toggleClass("toggled");
+$('#menu-toggle').click(function(event) {
+  event.preventDefault();
+  $('#wrapper').toggleClass('toggled');
 });
 
 $(document).ready(() => {
-  $('#searchForm').on('submit', (e) => {
+  // obteniendo elementos del DOM
+  var inputSearch = $('#searchForm');
+  var itemDrama = $('#drama');
+  var itemAction = $('#action');
+  // asociando eventos a elementos del DOM
+  inputSearch.on('submit', (event) => {
+    event.preventDefault();
     let searchText = $('#searchText').val();
     getMovies(searchText);
-    e.preventDefault();
   });
+
+  itemDrama.on('click', searchDataGenre);
+  itemAction.on('click', searchDataGenre);
+
+  // obtner peliculas segun el genero seleccionado
+  function searchDataGenre() {
+    var codeGenre = $(this).attr('data-code');
+    console.log(codeGenre);
+    $.getJSON('https://api.themoviedb.org/3/discover/movie?with_genres=' + codeGenre + '&api_key=5076f0f992d07860e10ee70c4f034e5e')
+      .then((result) => {
+        console.log(result);
+        let movies = result.results;
+        let moviesHtml = '';
+        $.each(movies, (index, movie) => {
+          moviesHtml += `
+          <div class="col-md-3">
+            <div class="well text-center">
+              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}">
+              <h5>${movie.title}</h5>
+              <a class="selected-movie" data-id="${movie.id}" href="#">Movie Details</a>
+            </div>
+          </div>
+        `;
+        });
+        $('#movies').html(moviesHtml);
+        console.log($('.selected-movie'));
+        $('.selected-movie').click(function(event) {
+          event.preventDefault();
+          console.log('hice click');
+          var id = $(this).attr('data-id');
+          sessionStorage.setItem('movieId', id);
+          // window.location.href = 'movie.html';
+          // return false;
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+  };
 });
 
 // traer todas las peliculas relacionadas a lo que el usuario escribio en el input 
@@ -18,9 +61,9 @@ function getMovies(searchText) {
     .then((response) => {
       console.log(response);
       let movies = response.Search;
-      let output = '';
+      let moviesHtml = '';
       $.each(movies, (index, movie) => {
-        output += `
+        moviesHtml += `
           <div class="col-md-3">
             <div class="well text-center">
               <img src="${movie.Poster}">
@@ -31,14 +74,14 @@ function getMovies(searchText) {
         `;
       });
 
-      $('#movies').html(output);
+      $('#movies').html(moviesHtml);
       console.log($('.selected-movie'));
-      $('.selected-movie').click(function (event) {
+      $('.selected-movie').click(function(event) {
         event.preventDefault();
         console.log('hice click');
         var id = $(this).attr('data-id');
         sessionStorage.setItem('movieId', id);
-        window.location.href = 'movie.html';
+        // window.location.href = 'movie.html';
         // return false;
       });
     })
