@@ -12,7 +12,7 @@ $('#myModal').modal('show')
   };
   firebase.initializeApp(config);
   // Registrando con google
-    var user1 = null;
+    var user= null;
 
     var $loginBtn1 = $('#start-login-google');
 
@@ -20,86 +20,65 @@ $('#myModal').modal('show')
 
     function googleLogin() {
       var provider1 = new firebase.auth.GoogleAuthProvider();
-
-      //esta es la doc de firebase
-      firebase
-      .auth()
-      .signInWithPopup(provider1)
-      .then(function(result) {
-        //guardamos el usuario que nos trae resuslt
-        user1 = result.user;
-        //mostramos su contenido
-        console.log(user1);
-        //ocultamos el div de login
+      firebase.auth().signInWithPopup(provider1).then(function(result) {
+        user = result.user;
+        console.log(user);
         window.location.href = '../home/index.html';
       });
       firebase.auth().onAuthStateChanged(function (user1) {
-        if (user1) {
+        if (user) {
           // User is signed in.
-          firebase.database().ref('users/' + user1.uid).set({
-            email: user1.email,
-            name: user1.displayName,
-            uid: user1.uid,
-            profilePicture: user1.photoURL
+          firebase.database().ref('Users/' + user.uid).set({
+            email: user.email,
+            name: user.displayName,
+            uid: user.uid,
+            profilePicture: user.photoURL
           })
         } else {
           // User is signed out.
           console.log('usuario registrado correctamente');
           }
         });
+          firebase.database().ref('post-comments/' + postId);
+      commentsRef.on('child_added', function(data) {
+        addCommentElement(postElement, data.key, data.val().text, data.val().author);
+      });
     };
 
     // Registrando con facebook
-   var user2 = null;
-
     var $loginBtn2 = $('#start-login-facebook');
 
     $loginBtn2.on('click', facebookLogin);
 
     function facebookLogin() {
-      var provider2 = new firebase.auth.FacebookAuthProvider();
-
-      //esta es la doc de firebase
-      firebase
-        .auth()
-        .signInWithPopup(provider2)
-        .then(function(result) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-          var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-
-          console.log(user2);
-
+      var provider = new firebase.auth.FacebookAuthProvider();
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+          user = result.user;
+          console.log(user);
           window.location.href = '../home/index.html';
-
-        })
-        .catch(function(error) {
-        // Handle Errors here.
+        }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
-        // The email of the user's account used.
         var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        // ...
         });
-        firebase.auth().onAuthStateChanged(function (user2) {
-          if (user2) {
-            // User is signed in.
-            firebase.database().ref('users/' + user2.uid).set({
-              email: user2.email,
-              name: user2.displayName,
-              uid: user2.uid,
-              profilePicture: user2.photoURL
+        firebase.auth().onAuthStateChanged(function (user) {
+          if (user) {
+            firebase.database().ref('Users/' + user.uid).set({
+              email: user.email,
+              name: user.displayName,
+              uid: user.uid,
+              profilePicture: user.photoURL
             })
           } else {
-            // User is signed out.
             console.log('usuario registrado correctamente');
             }
           });
-
-        };
+            /*firebase.database().ref('post-comments/' + postId);
+        commentsRef.on('child_added', function(data) {
+          addCommentElement(postElement, data.key, data.val().text, data.val().author);
+        });*/
+      };
 
 //Validando datos del Email
 function begin() {
@@ -128,10 +107,10 @@ function begin() {
   });
 
   $('#btn-sign-up').on('click', function() {
-    //$(location).attr('href', '../home/index.html');
     $('#showSignUp').text('Ya estas registrado, ahora inicia Sesión.');
   });
-  //validacciones para el log-in con cemail
+
+  //validacciones para el log-in con Email
   function emailAcces() {
     return !$('#email2').hasClass('invalid') && ($('#email').val().trim().length !== 0);
   };
@@ -173,7 +152,7 @@ function registrar() {
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
-    firebase.database().ref('users/' + user.uid).set({
+    firebase.database().ref('Users/' + user.uid).set({
       email: user.email,
       name: user.displayName,
       uid: user.uid,
@@ -243,32 +222,12 @@ firebase.database().ref('connected').on('value', function(snapshot) {
   });
   $($usersconect).append(html);
 });
-/*------------direccionar a html -------------------*/
-/*function aparece() {
-  var showSignUp = $('#showSignUp');
-  showSignUp.innerHTML = 'solo lo ve usuario activo';
-  /*  window.location.href = 'views/home/index.html';*/
-//};
 
-/*___________________ Uso de DataBase_______________*/
-// Fetch the service account key JSON file contents
-//FileInputStream serviceAccount = new FileInputStream("path/to/serviceAccountCredentials.json");
-
-// Initialize the app with a service account, granting admin privileges
-/*FirebaseOptions options = new FirebaseOptions.Builder()
-    .setCredential(FirebaseCredentials.fromCertificate(serviceAccount))
-    .setDatabaseUrl("https://hackaton-a97af.firebaseio.com")
-    .build();
-FirebaseApp.initializeApp(options);
-
-// As an admin, the app has access to read and write all data, regardless of Security Rules
-DatabaseReference ref = FirebaseDatabase
-    .getInstance()
-    .getReference("restricted_access/secret_document");
-ref.addListenerForSingleValueEvent(new ValueEventListener() {
-    @Override
-    public void onDataChange(DataSnapshot dataSnapshot) {
-        Object document = dataSnapshot.getValue();
-        System.out.println(document);
-    }
-});*/
+$('#btn-change').on('click', function(event) {
+  event.preventDefault();
+  if ($('#btn-change').val('hola')) {
+    $('#btn-change').text('bye');
+  }else if($('#btn-change').val('bye')) {
+    $('#btn-change').text('hola');
+  }
+});
