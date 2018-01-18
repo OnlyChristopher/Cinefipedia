@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Cinefipedia</title>
 
     <!-- Icons -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -21,102 +21,63 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-    </ul>
-  </div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><i class="fa fa-ticket fa-flip-horizontal" aria-hidden="true"></i>Click me!</a>
+  <form class="form-inline">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
 </nav>
 
-    <div id="wrapper">
+<!-- Sidebar -->
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                <li class="sidebar-brand">
-                    <a href="#">CINEFIPEDIA</a>
-                </li>
-                <div class="">
-                    <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
-                </div>
-                <div class="">
-                    <h4>User Name</h4>
-                </div>
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+<div id="wrapper">
+<div id="sidebar-wrapper">
+  <ul class="sidebar-nav" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+    <li class="sidebar-brand">
+      <a href="#">Bienvenido</a>
+    </li>
+    <div class="">
+      <i class="fa fa-user-circle fa-5x" aria-hidden="true"></i>
+    </div>
+    <div class="">
+      <h4>User Name</h4>
+    </div>
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+      <a class="nav-link" id="v-pills-login-tab" data-toggle="pill" href="#v-pills-login" role="tab" aria-controls="v-pills-login" aria-selected="false">Log In</a>
+      <a class="nav-link" id="v-pills-signup-tab" data-toggle="pill" href="#v-pills-signup" role="tab" aria-controls="v-pills-signup" aria-selected="false">Sign Up</a>
+      <a class="nav-link" id="v-pills-favourite-tab" data-toggle="pill" href="#v-pills-favourite" role="tab" aria-controls="v-pills-favourite" aria-selected="false">My favourites</a>
+      <a class="nav-link action" id="v-pills-action-tab" data-toggle="pill" data-code="28" href="#v-pills-action" role="tab" aria-controls="v-pills-action" aria-selected="false">Action</a>
+      <a class="nav-link adventure" id="v-pills-adventure-tab" data-toggle="pill" data-code="12" href="#v-pills-adventure" role="tab" aria-controls="v-pills-adventure" aria-selected="false">Adventure</a>
+      <a class="nav-link animation" id="v-pills-animation-tab" data-toggle="pill" data-code="16" href="#v-pills-animation" role="tab" aria-controls="v-pills-animation" aria-selected="false">Animation</a>
+      <a class="nav-link comedy" id="v-pills-comedy-tab" data-toggle="pill" data-code="35" href="#v-pills-comedy" role="tab" aria-controls="v-pills-comedy" aria-selected="false">Comedy</a>
+      <a class="nav-link drama" id="v-pills-drama-tab" data-toggle="pill" data-code="18" href="#v-pills-drama" role="tab" aria-controls="v-pills-drama" aria-selected="false">Drama</a>
+      <a class="nav-link horror" id="v-pills-horror-tab" data-toggle="pill" data-code="27" href="#v-pills-horror" role="tab" aria-controls="v-pills-horror" aria-selected="false">Horror</a>
+      <a class="nav-link romance" id="v-pills-romance-tab" data-toggle="pill" data-code="10749" href="#v-pills-romance" role="tab" aria-controls="v-pills-romance" aria-selected="false">Romance</a>
+    </div>
+  </ul>
+</div>
 
-                    <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home"
-                        aria-selected="true">Home</a>
-                    <a class="nav-link" id="v-pills-login-tab" data-toggle="pill" href="#v-pills-login" role="tab" aria-controls="v-pills-login"
-                        aria-selected="false">Log In</a>
-                    <a class="nav-link" id="v-pills-signup-tab" data-toggle="pill" href="#v-pills-signup" role="tab" aria-controls="v-pills-signup"
-                        aria-selected="false">Sign Up</a>
-                    <a class="nav-link" id="v-pills-favourite-tab" data-toggle="pill" href="#v-pills-favourite" role="tab" aria-controls="v-pills-favourite"
-                        aria-selected="false">My favourites</a>
-                    <a class="nav-link action" id="v-pills-action-tab" data-toggle="pill" data-code="28" href="#v-pills-action" role="tab" aria-controls="v-pills-action"
-                        aria-selected="false">Action</a>
-                    <a class="nav-link adventure" id="v-pills-adventure-tab" data-toggle="pill" data-code="12" href="#v-pills-adventure" role="tab"
-                        aria-controls="v-pills-adventure" aria-selected="false">Adventure</a>
-                    <a class="nav-link animation" id="v-pills-animation-tab" data-toggle="pill" data-code="16" href="#v-pills-animation" role="tab"
-                        aria-controls="v-pills-animation" aria-selected="false">Animation</a>
-                    <a class="nav-link comedy" id="v-pills-comedy-tab" data-toggle="pill" data-code="35" href="#v-pills-comedy" role="tab" aria-controls="v-pills-comedy"
-                        aria-selected="false">Comedy</a>
-                    <a class="nav-link drama" id="v-pills-drama-tab" data-toggle="pill" data-code="18" href="#v-pills-drama" role="tab" aria-controls="v-pills-drama"
-                        aria-selected="false">Drama</a>
-                    <a class="nav-link horror" id="v-pills-horror-tab" data-toggle="pill" data-code="27" href="#v-pills-horror" role="tab" aria-controls="v-pills-horror"
-                        aria-selected="false">Horror</a>
-                    <a class="nav-link romance" id="v-pills-romance-tab" data-toggle="pill" data-code="10749" href="#v-pills-romance" role="tab"
-                        aria-controls="v-pills-romance" aria-selected="false">Romance</a>
-                </div>
-            </ul>
-        </div>
-        <!-- Modal de Login o inicio de sesión-->
-        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
+<!-- Modal de Login o inicio de sesión-->
 
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-                <!-- /#sidebar-wrapper mobile -->
-        <a href="#menu-toggle" class="btn btn-secondary d-xl-none d-lg-none d-md-none" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
-
-        <!-- /#sidebar-wrapper desktop -->
-        <a href="#menu-toggle" class="b-desk btn btn-secondary d-none d-lg-block" id="menu-toggle">estás en desktop</a>
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div><!-- /#sidebar-wrapper mobile -->
 
         <!--carrusel mobile images-->
         <div id="carouselExampleControls" class="carousel slide d-xl-none d-lg-none" data-ride="carousel" data-interval="4000">

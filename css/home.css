@@ -1,6 +1,6 @@
 body {
   overflow-x: hidden;
-  background-color: black;
+  background-color: #1C1C1C;
 }
 
 #wrapper {
@@ -131,6 +131,14 @@ body {
 /*Boton en desktop para menú lateral*/
 .b-desk {
   width: 20%;
+}
+
+/*Estilos Nav*/
+
+.form-inline {
+  width: 20%;
+}
+
 /* estilos de modal de peliculas */
 
 .modal-body, .close {
