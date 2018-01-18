@@ -131,6 +131,8 @@ body {
 /*Boton en desktop para menú lateral*/
 .b-desk {
   width: 20%;
+}
+
 /* estilos de modal de peliculas */
 
 .modal-body, .close {
@@ -143,3 +145,8 @@ b, .modal-title{
 
 .modal-content{
   background-color: black;
+}
+
+.modal-body .img-fluid, #add-favorites {
+  width: 100%;
+}
