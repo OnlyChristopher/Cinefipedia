@@ -74,6 +74,7 @@ $(document).ready(() => {
   itemHorror.on('click', searchDataGenre);
   itemRomance.on('click', searchDataGenre);
   btnFavorites.on('click', addFavoritesMovies);
+  
 
   function addFavoritesMovies() {
     var apiMovie = $(this).attr('data-api');
