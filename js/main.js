@@ -39,7 +39,7 @@ $(document).ready(() => {
         <div class="col-6 col-sm-4 col-md-2">
           <div class="text-center">
             <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-            <h5>${movie.title}</h5>
+            <h5 class="letter-user">${movie.title}</h5>
           </div>
         </div>
       `;
@@ -92,7 +92,7 @@ $(document).ready(() => {
     };
     console.log(dataFavorites);
   };
-  // inicia cambios 
+  // inicia cambios
   var itemFavorite = $('#v-pills-favourite-tab');
   var sectionFavorite = $('#favorite-section');
   itemFavorite.on('click', createSectionFavorites);
