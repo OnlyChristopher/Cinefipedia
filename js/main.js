@@ -21,6 +21,7 @@ $(document).ready(() => {
   var releaseDatesModal = $('#release-dates');
   var voteAverageModal = $('#vote-average');
   var imgModal = $('#img-modal');
+  var trailerMovie = $('#trailer-movie');
   console.log(titleModal);
   // asociando eventos a elementos del DOM
   btnSearch.on('click', (event) => {
@@ -110,13 +111,26 @@ $(document).ready(() => {
     if (nameApi === 'tmdb') {
       var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
+      var trailerMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/videos?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var listCastMovie = [];
+      var trailerYoutubeKey;
+      var youtubeURL = 'https://www.youtube.com/embed/';
       $.getJSON(creditMovieData)
         .then((result) => {
           console.log(result);
           for (let index = 0; index < 11; index++) {
             const nameCast = result['cast'][index]['name'];
             listCastMovie.push(nameCast);
+          }
+        });
+      $.getJSON(trailerMovieData)
+        .then((result) => {
+          console.log(result);
+          for (let index = 0; index < result.results.length; index++) {
+            if (result.results[index]['type'] === 'Trailer') {
+              trailerYoutubeKey = result.results[index]['key'];
+              break;
+            }
           }
         });
       $.getJSON(dataMovie)
@@ -130,6 +144,7 @@ $(document).ready(() => {
           actorsModal.text(listCastMovie);
           voteAverageModal.text(result.vote_average);
           releaseDatesModal.text(result.release_date);
+          trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
         });
     } else if (nameApi === 'omdb') {
       $.getJSON('http://www.omdbapi.com?i=' + id + '&apikey=bea6c355')
