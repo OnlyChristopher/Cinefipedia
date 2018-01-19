@@ -24,7 +24,8 @@ $(document).ready(() => {
   var voteAverageModal = $('#vote-average');
   var imgModal = $('#img-modal');
   var trailerMovie = $('#trailer-movie');
-
+  var btnFavorites = $('#add-favorites');
+  var dataFavorites= [];  
   // construir vista incial (seccion HOME) al cargar la página
   function getBestMoviesSectionHome() {
     var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
@@ -72,6 +73,25 @@ $(document).ready(() => {
   itemComedy.on('click', searchDataGenre);
   itemHorror.on('click', searchDataGenre);
   itemRomance.on('click', searchDataGenre);
+  btnFavorites.on('click', addFavoritesMovies);
+
+  function addFavoritesMovies() {
+    var apiMovie = $(this).attr('data-api');
+    var movieId = $(this).attr('data-id');
+    var dataMovieSelect = {
+      id: movieId,
+      apiName: movieId,
+    };
+    if ($(this).text() === 'Add to Favorites') {
+      $(this).text('added to favorites');
+      dataFavorites.push(dataMovieSelect);
+    } else {
+      $(this).text('Add to Favorites');
+      var position = dataFavorites.indexOf(dataMovieSelect);
+      dataFavorites.splice(position,1);
+    }
+    console.log(dataFavorites);
+  }
 
   // traer todas las peliculas relacionadas a lo que el usuario escribio en el input
   function getMovies(searchText) {
@@ -179,6 +199,8 @@ $(document).ready(() => {
           actorsModal.text(listCastMovie);
           voteAverageModal.text(result.vote_average);
           releaseDatesModal.text(result.release_date);
+          btnFavorites.attr('data-id', id);
+          btnFavorites.attr('data-api', nameApi);          
           $('#view-trailer').css('display', 'block');
           trailerMovie.css('display', 'block');          
           trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
@@ -197,6 +219,8 @@ $(document).ready(() => {
           releaseDatesModal.text(result['Released']);
           $('#view-trailer').css('display', 'none');          
           trailerMovie.css('display', 'none');
+          btnFavorites.attr('data-id', id);
+          btnFavorites.attr('data-api', nameApi);
         })
         .catch((err) => {
           console.log(err);
