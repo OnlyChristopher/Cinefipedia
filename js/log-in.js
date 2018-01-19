@@ -11,7 +11,7 @@ var config = {
   messagingSenderId: '10634710862'
 };
 // Initialize Firebase
-  var config = {
+var config = {
     apiKey: "AIzaSyBEtMWsBITOzOtJ2cvhm6pryCF1eEwM8nU",
     authDomain: "hackaton-a97af.firebaseapp.com",
     databaseURL: "https://hackaton-a97af.firebaseio.com",

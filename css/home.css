@@ -140,6 +140,15 @@ body {
 
 .form-inline {
   flex-flow: nowrap;
+
+}
+
+.navbar-dark a{
+  color: #47D7AC;
+}
+
+nav a {
+  color: #47D7AC;
 }
 
 a {
@@ -181,10 +190,9 @@ iframe {
   background-color: #47D7AC;
 }
 @media (min-width: 768px){
-  
+
   iframe {
     height: 500px;
   }
-  
-}
 
+}
