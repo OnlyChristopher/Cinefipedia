@@ -9,7 +9,7 @@ $(document).ready(() => {
   var sectionHome = $('#home-search');
   var btnSearch = $('#search-btn');
   var inputTextSearch = $('#input-search');
-  var itemHome = $('#v-pills-home-tab');  
+  var itemHome = $('#v-pills-home-tab');
   var itemDrama = $('.drama');
   var itemAction = $('.action');
   var itemAdventure = $('.adventure');
@@ -25,7 +25,7 @@ $(document).ready(() => {
   var imgModal = $('#img-modal');
   var trailerMovie = $('#trailer-movie');
   var btnFavorites = $('#add-favorites');
-  var dataFavorites= [];  
+  var dataFavorites= [];
   // construir vista incial (seccion HOME) al cargar la página
   function getBestMoviesSectionHome() {
     var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
@@ -39,7 +39,7 @@ $(document).ready(() => {
         <div class="col-6 col-sm-4 col-md-2">
           <div class="text-center">
             <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-            <h5>${movie.title}</h5>
+            <h5 class="letter-user">${movie.title}</h5>
           </div>
         </div>
       `;
@@ -143,7 +143,7 @@ $(document).ready(() => {
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
               <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-              <h5>${movie.title}</h5>
+              <h5 class="letter-user">${movie.title}</h5>
             </div>
           </div>
         `;
@@ -200,9 +200,9 @@ $(document).ready(() => {
           voteAverageModal.text(result.vote_average);
           releaseDatesModal.text(result.release_date);
           btnFavorites.attr('data-id', id);
-          btnFavorites.attr('data-api', nameApi);          
+          btnFavorites.attr('data-api', nameApi);
           $('#view-trailer').css('display', 'block');
-          trailerMovie.css('display', 'block');          
+          trailerMovie.css('display', 'block');
           trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
         });
     } else if (nameApi === 'omdb') {
@@ -217,7 +217,7 @@ $(document).ready(() => {
           actorsModal.text(result['Actors']);
           voteAverageModal.text(result.imdbRating);
           releaseDatesModal.text(result['Released']);
-          $('#view-trailer').css('display', 'none');          
+          $('#view-trailer').css('display', 'none');
           trailerMovie.css('display', 'none');
           btnFavorites.attr('data-id', id);
           btnFavorites.attr('data-api', nameApi);
