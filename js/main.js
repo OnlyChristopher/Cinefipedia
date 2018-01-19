@@ -6,8 +6,10 @@ $('#menu-toggle').click(function (event) {
 
 $(document).ready(() => {
   // obteniendo elementos del DOM
+  var sectionHome = $('#home-search');
   var btnSearch = $('#search-btn');
   var inputTextSearch = $('#input-search');
+  var itemHome = $('#v-pills-home-tab');  
   var itemDrama = $('.drama');
   var itemAction = $('.action');
   var itemAdventure = $('.adventure');
@@ -22,8 +24,40 @@ $(document).ready(() => {
   var voteAverageModal = $('#vote-average');
   var imgModal = $('#img-modal');
   var trailerMovie = $('#trailer-movie');
-  console.log(titleModal);
+
+  // construir vista incial (seccion HOME) al cargar la página
+  function getBestMoviesSectionHome() {
+    var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
+    $.getJSON(popularMoviesData)
+      .then((result) => {
+        console.log(result);
+        let movies = result.results;
+        let moviesHtml = '';
+        $.each(movies, (index, movie) => {
+          moviesHtml += `
+        <div class="col-6 col-sm-4 col-md-2">
+          <div class="text-center">
+            <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+            <h5>${movie.title}</h5>
+          </div>
+        </div>
+      `;
+        });
+        $(sectionHome).html(moviesHtml);
+        $('.selected-movie').click(function (event) {
+          event.preventDefault();
+          console.log('hice click');
+          var id = $(this).attr('data-id');
+          var nameApi = $(this).attr('data-api');
+          getMovieData(id, nameApi);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });;
+  }
+
   // asociando eventos a elementos del DOM
+  itemHome.on('click', getBestMoviesSectionHome)
   btnSearch.on('click', (event) => {
     event.preventDefault();
     if (inputTextSearch.val()) {
@@ -70,6 +104,7 @@ $(document).ready(() => {
       .catch((err) => {
         console.log(err);
       });
+      inputTextSearch.val('');
   }
 
   // obtener peliculas segun el genero seleccionado
@@ -164,4 +199,5 @@ $(document).ready(() => {
         });
     }
   }
+  getBestMoviesSectionHome();
 });
