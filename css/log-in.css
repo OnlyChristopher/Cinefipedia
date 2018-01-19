@@ -19,3 +19,16 @@
 .hide {
   display: none;
 }
+
+.img-user {
+  width: 100px;
+  margin-left: 18px;
+}
+
+.margin-left {
+  margin-top: 20px;
+}
+
+.letter-user {
+  color: white;
+}
