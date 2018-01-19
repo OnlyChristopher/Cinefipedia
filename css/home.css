@@ -177,6 +177,9 @@ iframe {
   height: 315px;
 }
 
+.favorites-movies {
+  background-color: #47D7AC;
+}
 @media (min-width: 768px){
   
   iframe {
@@ -184,3 +187,4 @@ iframe {
   }
   
 }
+
