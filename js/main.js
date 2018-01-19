@@ -100,6 +100,7 @@ $(document).ready(() => {
 
   function createSectionFavorites() {
     console.log('empezando a crear section Home');
+    sectionFavorite.html('');
     var moviesFavoritesHtml;
     for (let index = 0; index < dataFavorites.length; index++) {
       var movie = dataFavorites[index];
@@ -113,7 +114,7 @@ $(document).ready(() => {
             <div class="col-6 col-sm-4 col-md-2">
               <div class="text-center">
                 <img src="http://image.tmdb.org/t/p/w185/${result.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-                <h5>${result.title}</h5>
+                <h5 class="letter-user">${result.title}</h5>
               </div>
             </div>
           `;
@@ -125,11 +126,11 @@ $(document).ready(() => {
         $.getJSON(dataMovie)
           .then((result) => {
             console.log(result);
-            moviesFavoritesHtml += `
+            moviesFavoritesHtml = `
             <div class="col-6 col-sm-4 col-md-2">
               <div class="well text-center">
                 <img src="${result.Poster}" class="img-fluid selected-movie" data-id="${result.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
-                <h5>${result.Title}</h5>
+                <h5 class="letter-user">${result.Title}</h5>
               </div>
             </div>
           `;
@@ -152,7 +153,7 @@ $(document).ready(() => {
           <div class="col-6 col-sm-4 col-md-2">
             <div class="well text-center">
               <img src="${movie.Poster}" class="img-fluid selected-movie" data-id="${movie.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
-              <h5>${movie.Title}</h5>
+              <h5 class="letter-user">${movie.Title}</h5>
             </div>
           </div>
         `;
@@ -190,7 +191,7 @@ $(document).ready(() => {
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
               <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-              <h5>${movie.title}</h5>
+              <h5 class="letter-user">${movie.title}</h5>
             </div>
           </div>
         `;
