@@ -7,10 +7,15 @@
   line-height: 1.428571429;
   border-radius: 15px;
 }
+
 .btn-circle.btn-lg {
   width: 50px;
   height: 50px;
   font-size: 18px;
   line-height: 1.33;
   border-radius: 25px;
+}
+
+.hide {
+  display: none;
 }
