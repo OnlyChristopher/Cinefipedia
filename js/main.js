@@ -6,8 +6,10 @@ $('#menu-toggle').click(function (event) {
 
 $(document).ready(() => {
   // obteniendo elementos del DOM
+  var sectionHome = $('#home-search');
   var btnSearch = $('#search-btn');
   var inputTextSearch = $('#input-search');
+  var itemHome = $('#v-pills-home-tab');  
   var itemDrama = $('.drama');
   var itemAction = $('.action');
   var itemAdventure = $('.adventure');
@@ -21,8 +23,42 @@ $(document).ready(() => {
   var releaseDatesModal = $('#release-dates');
   var voteAverageModal = $('#vote-average');
   var imgModal = $('#img-modal');
-  console.log(titleModal);
+  var trailerMovie = $('#trailer-movie');
+  var btnFavorites = $('#add-favorites');
+  var dataFavorites= [];  
+  // construir vista incial (seccion HOME) al cargar la página
+  function getBestMoviesSectionHome() {
+    var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
+    $.getJSON(popularMoviesData)
+      .then((result) => {
+        console.log(result);
+        let movies = result.results;
+        let moviesHtml = '';
+        $.each(movies, (index, movie) => {
+          moviesHtml += `
+        <div class="col-6 col-sm-4 col-md-2">
+          <div class="text-center">
+            <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+            <h5>${movie.title}</h5>
+          </div>
+        </div>
+      `;
+        });
+        $(sectionHome).html(moviesHtml);
+        $('.selected-movie').click(function (event) {
+          event.preventDefault();
+          console.log('hice click');
+          var id = $(this).attr('data-id');
+          var nameApi = $(this).attr('data-api');
+          getMovieData(id, nameApi);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });;
+  }
+
   // asociando eventos a elementos del DOM
+  itemHome.on('click', getBestMoviesSectionHome)
   btnSearch.on('click', (event) => {
     event.preventDefault();
     if (inputTextSearch.val()) {
@@ -37,6 +73,25 @@ $(document).ready(() => {
   itemComedy.on('click', searchDataGenre);
   itemHorror.on('click', searchDataGenre);
   itemRomance.on('click', searchDataGenre);
+  btnFavorites.on('click', addFavoritesMovies);
+
+  function addFavoritesMovies() {
+    var apiMovie = $(this).attr('data-api');
+    var movieId = $(this).attr('data-id');
+    var dataMovieSelect = {
+      id: movieId,
+      apiName: movieId,
+    };
+    if ($(this).text() === 'Add to Favorites') {
+      $(this).text('added to favorites');
+      dataFavorites.push(dataMovieSelect);
+    } else {
+      $(this).text('Add to Favorites');
+      var position = dataFavorites.indexOf(dataMovieSelect);
+      dataFavorites.splice(position,1);
+    }
+    console.log(dataFavorites);
+  }
 
   // traer todas las peliculas relacionadas a lo que el usuario escribio en el input
   function getMovies(searchText) {
@@ -69,6 +124,7 @@ $(document).ready(() => {
       .catch((err) => {
         console.log(err);
       });
+      inputTextSearch.val('');
   }
 
   // obtener peliculas segun el genero seleccionado
@@ -110,13 +166,26 @@ $(document).ready(() => {
     if (nameApi === 'tmdb') {
       var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
+      var trailerMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/videos?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var listCastMovie = [];
+      var trailerYoutubeKey;
+      var youtubeURL = 'https://www.youtube.com/embed/';
       $.getJSON(creditMovieData)
         .then((result) => {
           console.log(result);
           for (let index = 0; index < 11; index++) {
             const nameCast = result['cast'][index]['name'];
             listCastMovie.push(nameCast);
+          }
+        });
+      $.getJSON(trailerMovieData)
+        .then((result) => {
+          console.log(result);
+          for (let index = 0; index < result.results.length; index++) {
+            if (result.results[index]['type'] === 'Trailer') {
+              trailerYoutubeKey = result.results[index]['key'];
+              break;
+            }
           }
         });
       $.getJSON(dataMovie)
@@ -130,6 +199,11 @@ $(document).ready(() => {
           actorsModal.text(listCastMovie);
           voteAverageModal.text(result.vote_average);
           releaseDatesModal.text(result.release_date);
+          btnFavorites.attr('data-id', id);
+          btnFavorites.attr('data-api', nameApi);          
+          $('#view-trailer').css('display', 'block');
+          trailerMovie.css('display', 'block');          
+          trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
         });
     } else if (nameApi === 'omdb') {
       $.getJSON('http://www.omdbapi.com?i=' + id + '&apikey=bea6c355')
@@ -143,10 +217,15 @@ $(document).ready(() => {
           actorsModal.text(result['Actors']);
           voteAverageModal.text(result.imdbRating);
           releaseDatesModal.text(result['Released']);
+          $('#view-trailer').css('display', 'none');          
+          trailerMovie.css('display', 'none');
+          btnFavorites.attr('data-id', id);
+          btnFavorites.attr('data-api', nameApi);
         })
         .catch((err) => {
           console.log(err);
         });
     }
   }
+  getBestMoviesSectionHome();
 });

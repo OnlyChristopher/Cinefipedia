@@ -66,22 +66,6 @@ var config = {
         });
       });
 
-      $(document).ready(function(){
-        $('#logOut').mouseover(function() {
-          $('#logOut').text('Log out');
-        });
-        $('#logOut').mouseout(function() {
-          $('#logOut').html('<i class="fa fa-times" aria-hidden="true"></i>');
-        });
-      });
-
-    function hidden() {
-      $('#signUp').addClass('hide');
-      $('#logIn').addClass('hide');
-      $('#logOut').removeClass('hide');
-      $('#v-pills-favourite-tab').removeClass('hide');
-    };
-
     // Registrando con facebook
     var $loginBtn2 = $('#start-login-facebook');
 
@@ -92,13 +76,13 @@ var config = {
       firebase.auth().signInWithPopup(provider).then(function(result) {
           user = result.user;
           console.log(user);
-          $('#signUp').addClass('hide');
-          $('#logIn').addClass('hide');
+          hidden();
         }).catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         var email = error.email;
         var credential = error.credential;
+
         });
         firebase.auth().onAuthStateChanged(function (user) {
           if (user) {
@@ -107,7 +91,7 @@ var config = {
               name: user.displayName,
               uid: user.uid,
               profilePicture: user.photoURL
-            })
+            });
           } else {
             console.log('usuario registrado correctamente');
             }
@@ -214,8 +198,7 @@ function ingreso() {
     console.log(errorMessage);
     // ...
   });
-  $('#signUp').addClass('hide');
-  $('#logIn').addClass('hide');
+  hidden();
 };
 var $imageUser = $('#img-user');
 var $nameUser = $('#name-user');
@@ -246,11 +229,18 @@ function observador() {
 
 observador();
 
-$('#btn-change').on('click', function(event) {
-  event.preventDefault();
-  if ($('#btn-change').val('hola')) {
-    $('#btn-change').text('bye');
-  }else if($('#btn-change').val('bye')) {
-    $('#btn-change').text('hola');
-  }
+$(document).ready(function(){
+  $('#logOut').mouseover(function() {
+    $('#logOut').text('Log out');
+  });
+  $('#logOut').mouseout(function() {
+    $('#logOut').html('<i class="fa fa-times" aria-hidden="true"></i>');
+  });
 });
+
+function hidden() {
+$('#signUp').addClass('hide');
+$('#logIn').addClass('hide');
+$('#logOut').removeClass('hide');
+$('#v-pills-favourite-tab').removeClass('hide');
+};

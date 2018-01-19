@@ -96,22 +96,28 @@ body {
 }
 
 @media(min-width:768px) {
+
   #wrapper {
     padding-left: 0;
   }
+
   #wrapper.toggled {
     padding-left: 250px;
   }
+
   #sidebar-wrapper {
     width: 0;
   }
+
   #wrapper.toggled #sidebar-wrapper {
     width: 250px;
   }
+
   #page-content-wrapper {
     padding: 20px;
     position: relative;
   }
+
   #wrapper.toggled #page-content-wrapper {
     position: relative;
     margin-right: 0;
@@ -166,3 +172,19 @@ b, .modal-title{
 .modal-body .img-fluid, #add-favorites {
   width: 100%;
 }
+
+iframe {
+  height: 315px;
+}
+
+.favorites-movies {
+  background-color: #47D7AC;
+}
+@media (min-width: 768px){
+  
+  iframe {
+    height: 500px;
+  }
+  
+}
+
