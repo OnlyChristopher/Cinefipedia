@@ -243,4 +243,5 @@ $('#signUp').addClass('hide');
 $('#logIn').addClass('hide');
 $('#logOut').removeClass('hide');
 $('#v-pills-favourite-tab').removeClass('hide');
+$('#add-favorites').removeClass('hide');
 };
