@@ -24,8 +24,8 @@
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <a class="navbar-brand" href="#menu-toggle" id="menu-toggle"><i class="fa fa-ticket fa-flip-horizontal" aria-hidden="true"></i>Click!</a>
   <form class="form-inline">
-   <input class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
-   <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+   <input id="input-search" class="form-control mr-sm-1" type="search" placeholder="Search" aria-label="Search">
+   <button id="search-btn" class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
   </form>
 </nav>
 
@@ -109,13 +109,9 @@
         <!-- Page Content -->
         <div class="tab-content" id="v-pills-tabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover8.jpeg" alt="">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover2.jpeg" alt="">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover1.jpg" alt="">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover3.jpg" alt="">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover5.jpg" alt="">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover7.jpg" alt="">
-                <img style="width: 30%; height: 30%;" src="../../assets/images/cover4.jpg" alt="">
+                <div class="container-fluid">
+                    <div class="row" id="home-search"></div>
+                </div>
             </div>
             <div class="tab-pane fade" id="v-pills-favourite" role="tabpanel" aria-labelledby="v-pills-favourite-tab">estoy en favorito</div>
             <div class="tab-pane fade" id="v-pills-action" role="tabpanel" aria-labelledby="v-pills-action-tab">

@@ -6,7 +6,8 @@ $('#menu-toggle').click(function (event) {
 
 $(document).ready(() => {
   // obteniendo elementos del DOM
-  var inputSearch = $('#searchForm');
+  var btnSearch = $('#search-btn');
+  var inputTextSearch = $('#input-search');
   var itemDrama = $('.drama');
   var itemAction = $('.action');
   var itemAdventure = $('.adventure');
@@ -22,10 +23,11 @@ $(document).ready(() => {
   var imgModal = $('#img-modal');
   console.log(titleModal);
   // asociando eventos a elementos del DOM
-  inputSearch.on('submit', (event) => {
+  btnSearch.on('click', (event) => {
     event.preventDefault();
-    let searchText = $('#searchText').val();
-    getMovies(searchText);
+    if (inputTextSearch.val()) {
+      getMovies(inputTextSearch.val());
+    };
   });
 
   itemDrama.on('click', searchDataGenre);
@@ -35,6 +37,39 @@ $(document).ready(() => {
   itemComedy.on('click', searchDataGenre);
   itemHorror.on('click', searchDataGenre);
   itemRomance.on('click', searchDataGenre);
+
+  // traer todas las peliculas relacionadas a lo que el usuario escribio en el input
+  function getMovies(searchText) {
+    $.getJSON('http://www.omdbapi.com?s=' + encodeURI(searchText) + '&apikey=bea6c355')
+      .then((response) => {
+        console.log(response);
+        let movies = response.Search;
+        let moviesHtml = '';
+        $.each(movies, (index, movie) => {
+          moviesHtml += `
+          <div class="col-6 col-sm-4 col-md-2">
+            <div class="well text-center">
+              <img src="${movie.Poster}" class="img-fluid selected-movie" data-id="${movie.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
+              <h5>${movie.Title}</h5>
+            </div>
+          </div>
+        `;
+        });
+
+        $('#home-search').html(moviesHtml);
+        console.log($('.selected-movie'));
+        $('.selected-movie').click(function (event) {
+          event.preventDefault();
+          console.log('hice click');
+          var id = $(this).attr('data-id');
+          var nameApi = $(this).attr('data-api');
+          getMovieData(id, nameApi);
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   // obtener peliculas segun el genero seleccionado
   function searchDataGenre() {
@@ -51,133 +86,67 @@ $(document).ready(() => {
           moviesHtml += `
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
-              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-target=".bd-example-modal-lg">
+              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
               <h5>${movie.title}</h5>
-              <a data-id="${movie.id}" href="#">Movie Details</a>
             </div>
           </div>
         `;
         });
         $(nameSectionTab).html(moviesHtml);
         $('.selected-movie').click(function (event) {
-          console.log($('.selected-movie'));
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
-          // sessionStorage.setItem('movieId', id);
-          getMovieData(id);
-
-          // return false;
+          var nameApi = $(this).attr('data-api');
+          getMovieData(id, nameApi);
         });
       }).catch((err) => {
         console.log(err);
       });
   };
+
   // funcion para mostrar la informacion de la pelicula seleccionada
-  function getMovieData(id) {
-    var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
-    var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
-    var listCastMovie = [];
-    $.getJSON(creditMovieData)
-      .then((result) => {
-        console.log(result);
-        for (let index = 0; index < 11; index++) {
-          const nameCast = result['cast'][index]['name'];
-          listCastMovie.push(nameCast);
-        }
-      });
-    $.getJSON(dataMovie)
-      .then((result) => {
-        console.log(result);
-        listCastMovie = listCastMovie.toString();
-        console.log(listCastMovie);
-        titleModal.text(result.title);
-        imgModal.attr('src', 'http://image.tmdb.org/t/p/w185/' + result.poster_path);
-        synopsisModal.text(result.overview);
-        actorsModal.text(listCastMovie);
-        voteAverageModal.text(result.vote_average);
-        releaseDatesModal.text(result.release_date);
-      });
+  function getMovieData(id, nameApi) {
+    if (nameApi === 'tmdb') {
+      var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
+      var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
+      var listCastMovie = [];
+      $.getJSON(creditMovieData)
+        .then((result) => {
+          console.log(result);
+          for (let index = 0; index < 11; index++) {
+            const nameCast = result['cast'][index]['name'];
+            listCastMovie.push(nameCast);
+          }
+        });
+      $.getJSON(dataMovie)
+        .then((result) => {
+          console.log(result);
+          listCastMovie = listCastMovie.toString();
+          console.log(listCastMovie);
+          titleModal.text(result.title);
+          imgModal.attr('src', 'http://image.tmdb.org/t/p/w185/' + result.poster_path);
+          synopsisModal.text(result.overview);
+          actorsModal.text(listCastMovie);
+          voteAverageModal.text(result.vote_average);
+          releaseDatesModal.text(result.release_date);
+        });
+    } else if (nameApi === 'omdb') {
+      $.getJSON('http://www.omdbapi.com?i=' + id + '&apikey=bea6c355')
+        .then((result) => {
+          console.log(result);
+          let movie = result.data;
+          console.log(movie);
+          titleModal.text(result['Title']);
+          imgModal.attr('src', result['Poster']);
+          synopsisModal.text(result['Plot']);
+          actorsModal.text(result['Actors']);
+          voteAverageModal.text(result.imdbRating);
+          releaseDatesModal.text(result['Released']);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 });
-
-
-
-// traer todas las peliculas relacionadas a lo que el usuario escribio en el input
-function getMovies(searchText) {
-  $.getJSON('http://www.omdbapi.com?s=' + encodeURI(searchText) + '&apikey=bea6c355')
-    .then((response) => {
-      console.log(response);
-      let movies = response.Search;
-      let moviesHtml = '';
-      $.each(movies, (index, movie) => {
-        moviesHtml += `
-          <div class="col-md-3">
-            <div class="well text-center">
-              <img src="${movie.Poster}">
-              <h5>${movie.Title}</h5>
-              <a class="selected-movie" data-id= "${movie.imdbID}"; href="#">Movie Details</a>
-            </div>
-          </div>
-        `;
-      });
-
-      $('#movies').html(moviesHtml);
-      console.log($('.selected-movie'));
-      $('.selected-movie').click(function (event) {
-        event.preventDefault();
-        console.log('hice click');
-        var id = $(this).attr('data-id');
-        sessionStorage.setItem('movieId', id);
-        // window.location.href = 'movie.html';
-        // return false;
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-/*function getMovie() {
-  let movieId = sessionStorage.getItem('movieId');
-
-  $.getJSON('http://www.omdbapi.com?i=' + movieId + '&apikey=bea6c355')
-    .then((response) => {
-      console.log(response);
-      let movie = response.data;
-
-      let output = `
-        <div class="row">
-          <div class="col-md-4">
-            <img src="${movie.Poster}" class="thumbnail">
-          </div>
-          <div class="col-md-8">
-            <h2>${movie.Title}</h2>
-            <ul class="list-group">
-              <li class="list-group-item"><strong>Genre:</strong> ${movie.Genre}</li>
-              <li class="list-group-item"><strong>Released:</strong> ${movie.Released}</li>
-              <li class="list-group-item"><strong>Rated:</strong> ${movie.Rated}</li>
-              <li class="list-group-item"><strong>IMDB Rating:</strong> ${movie.imdbRating}</li>
-              <li class="list-group-item"><strong>Director:</strong> ${movie.Director}</li>
-              <li class="list-group-item"><strong>Writer:</strong> ${movie.Writer}</li>
-              <li class="list-group-item"><strong>Actors:</strong> ${movie.Actors}</li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="well">
-            <h3>Plot</h3>
-            ${movie.Plot}
-            <hr>
-            <a href="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
-            <a href="index.html" class="btn btn-default">Go Back To Search</a>
-          </div>
-        </div>
-      `;
-
-      $('#movie').html(output);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}*/
