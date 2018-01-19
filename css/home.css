@@ -130,9 +130,23 @@ body {
   margin-bottom: 5%;
 }
 
-/*Boton en desktop para menú lateral*/
-.b-desk {
-  width: 20%;
+/*Estilos Nav*/
+
+.form-inline {
+  flex-flow: nowrap;
+}
+
+a {
+  color: #47D7AC
+}
+
+a:hover {
+  color: white;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+  color: #343A40;
+  background-color: #47D7AC;
 }
 
 /* estilos de modal de peliculas */
