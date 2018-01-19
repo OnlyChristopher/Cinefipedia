@@ -25,7 +25,7 @@ $(document).ready(() => {
   var imgModal = $('#img-modal');
   var trailerMovie = $('#trailer-movie');
   var btnFavorites = $('#add-favorites');
-  var dataFavorites= [];
+  var dataFavorites = [];
   // construir vista incial (seccion HOME) al cargar la página
   function getBestMoviesSectionHome() {
     var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
@@ -39,7 +39,7 @@ $(document).ready(() => {
         <div class="col-6 col-sm-4 col-md-2">
           <div class="text-center">
             <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-            <h5 class="letter-user">${movie.title}</h5>
+            <h5>${movie.title}</h5>
           </div>
         </div>
       `;
@@ -74,26 +74,72 @@ $(document).ready(() => {
   itemHorror.on('click', searchDataGenre);
   itemRomance.on('click', searchDataGenre);
   btnFavorites.on('click', addFavoritesMovies);
-  
 
   function addFavoritesMovies() {
     var apiMovie = $(this).attr('data-api');
     var movieId = $(this).attr('data-id');
     var dataMovieSelect = {
       id: movieId,
-      apiName: movieId,
+      apiName: apiMovie,
     };
     if ($(this).text() === 'Add to Favorites') {
-      $(this).text('added to favorites');
+      $(this).text('Added to Favorites');
       dataFavorites.push(dataMovieSelect);
     } else {
       $(this).text('Add to Favorites');
       var position = dataFavorites.indexOf(dataMovieSelect);
-      dataFavorites.splice(position,1);
-    }
+      dataFavorites.splice(position, 1);
+    };
     console.log(dataFavorites);
-  }
+  };
+  // inicia cambios 
+  var itemFavorite = $('#v-pills-favourite-tab');
+  var sectionFavorite = $('#favorite-section');
+  itemFavorite.on('click', createSectionFavorites);
+  console.log(sectionFavorite);
 
+  function createSectionFavorites() {
+    console.log('empezando a crear section Home');
+    var moviesFavoritesHtml;
+    for (let index = 0; index < dataFavorites.length; index++) {
+      var movie = dataFavorites[index];
+      var dataMovie;
+      if (movie['apiName'] === 'tmdb') {
+        dataMovie = 'https://api.themoviedb.org/3/movie/' + movie.id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
+        $.getJSON(dataMovie)
+          .then((result) => {
+            console.log(result);
+            moviesFavoritesHtml = `
+            <div class="col-6 col-sm-4 col-md-2">
+              <div class="text-center">
+                <img src="http://image.tmdb.org/t/p/w185/${result.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+                <h5>${result.title}</h5>
+              </div>
+            </div>
+          `;
+            console.log(moviesFavoritesHtml);
+            $(moviesFavoritesHtml).appendTo(sectionFavorite);
+          });
+      } else if (movie['apiName'] === 'omdb') {
+        dataMovie = 'http://www.omdbapi.com?i=' + movie.id + '&apikey=bea6c355';
+        $.getJSON(dataMovie)
+          .then((result) => {
+            console.log(result);
+            moviesFavoritesHtml += `
+            <div class="col-6 col-sm-4 col-md-2">
+              <div class="well text-center">
+                <img src="${result.Poster}" class="img-fluid selected-movie" data-id="${result.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
+                <h5>${result.Title}</h5>
+              </div>
+            </div>
+          `;
+            $(moviesFavoritesHtml).appendTo(sectionFavorite);
+          });
+      };
+    };
+    sectionFavorite.html(moviesFavoritesHtml);
+  }
+  // termina cambios
   // traer todas las peliculas relacionadas a lo que el usuario escribio en el input
   function getMovies(searchText) {
     $.getJSON('http://www.omdbapi.com?s=' + encodeURI(searchText) + '&apikey=bea6c355')
@@ -125,7 +171,7 @@ $(document).ready(() => {
       .catch((err) => {
         console.log(err);
       });
-      inputTextSearch.val('');
+    inputTextSearch.val('');
   }
 
   // obtener peliculas segun el genero seleccionado
@@ -144,7 +190,7 @@ $(document).ready(() => {
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
               <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
-              <h5 class="letter-user">${movie.title}</h5>
+              <h5>${movie.title}</h5>
             </div>
           </div>
         `;
@@ -205,6 +251,13 @@ $(document).ready(() => {
           $('#view-trailer').css('display', 'block');
           trailerMovie.css('display', 'block');
           trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
+          for (let index = 0; index < dataFavorites.length; index++) {
+            if (dataFavorites[index]['id'] === id) {
+              btnFavorites.text('Added to Favorites');
+            } else {
+              btnFavorites.text('Add to Favorites');
+            };
+          };
         });
     } else if (nameApi === 'omdb') {
       $.getJSON('http://www.omdbapi.com?i=' + id + '&apikey=bea6c355')
@@ -222,6 +275,13 @@ $(document).ready(() => {
           trailerMovie.css('display', 'none');
           btnFavorites.attr('data-id', id);
           btnFavorites.attr('data-api', nameApi);
+          for (let index = 0; index < dataFavorites.length; index++) {
+            if (dataFavorites[index]['id'] === id) {
+              btnFavorites.text('Added to Favorites');
+            } else {
+              btnFavorites.text('Add to Favorites');
+            };
+          };
         })
         .catch((err) => {
           console.log(err);
