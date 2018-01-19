@@ -179,6 +179,8 @@ $(document).ready(() => {
           actorsModal.text(listCastMovie);
           voteAverageModal.text(result.vote_average);
           releaseDatesModal.text(result.release_date);
+          $('#view-trailer').css('display', 'block');
+          trailerMovie.css('display', 'block');          
           trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
         });
     } else if (nameApi === 'omdb') {
@@ -193,6 +195,8 @@ $(document).ready(() => {
           actorsModal.text(result['Actors']);
           voteAverageModal.text(result.imdbRating);
           releaseDatesModal.text(result['Released']);
+          $('#view-trailer').css('display', 'none');          
+          trailerMovie.css('display', 'none');
         })
         .catch((err) => {
           console.log(err);
