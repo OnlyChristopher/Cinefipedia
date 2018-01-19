@@ -19,3 +19,14 @@
 .hide {
   display: none;
 }
+
+.img-user {
+  width: 100px;
+  margin-left: 18px;
+}
+
+.letter-user {
+  color: white;
+  margin-top: 20px;
+
+}

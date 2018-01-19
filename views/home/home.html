@@ -36,19 +36,22 @@
 <div id="sidebar-wrapper">
  <ul class="sidebar-nav" class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
    <li class="sidebar-brand">
-     <a href="#">Bienvenido</a>
+     <a class="text-center" href="#">BIENVENIDO</a>
    </li>
-   <div class="">
-     <img id="img-user" src="" alt="">
-   </div>
-   <div class="">
-     <h4 id="name-user">User Name</h4>
+   <div class="row">
+     <div class="col1">
+       <img id="img-user" src="../../assets/images/user.png" alt="" class="img-user rounded-circle">
+     </div>
+     <div class="col">
+       <h6 id="name-user" class="letter-user">User Name</h6>
+       <button id="logOut" type="button" class="btn btn-light float-right hide"><i class="fa fa-times" aria-hidden="true"></i></button>
+     </div>
    </div>
    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
      <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
      <a class="nav-link" id="logIn" role="button" data-toggle="modal" data-target="#signUpModal" aria-controls="v-pills-login" aria-selected="false">Log In</a>
      <a class="nav-link" id="signUp" aria-controls="v-pills-signup" aria-selected="false" role="button" data-toggle="modal" data-target="#signUpModal">Sign Up</a>
-     <a class="nav-link" id="v-pills-favourite-tab" data-toggle="pill" href="#v-pills-favourite" role="tab" aria-controls="v-pills-favourite" aria-selected="false">My favourites</a>
+     <a class="nav-link hide" id="v-pills-favourite-tab" data-toggle="pill" href="#v-pills-favourite" role="tab" aria-controls="v-pills-favourite" aria-selected="false">My favorites</a>
      <a class="nav-link action" id="v-pills-action-tab" data-toggle="pill" data-code="28" href="#v-pills-action" role="tab" aria-controls="v-pills-action" aria-selected="false">Action</a>
      <a class="nav-link adventure" id="v-pills-adventure-tab" data-toggle="pill" data-code="12" href="#v-pills-adventure" role="tab" aria-controls="v-pills-adventure" aria-selected="false">Adventure</a>
      <a class="nav-link animation" id="v-pills-animation-tab" data-toggle="pill" data-code="16" href="#v-pills-animation" role="tab" aria-controls="v-pills-animation" aria-selected="false">Animation</a>
@@ -103,7 +106,7 @@
         </div>
         <!--fin carrusel mobile images-->
         <!--Trailers en home-desktop-->
-        
+
 
 
         <!-- Page Content -->

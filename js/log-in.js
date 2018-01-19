@@ -32,8 +32,7 @@ var config = {
       firebase.auth().signInWithPopup(provider1).then(function(result) {
         user = result.user;
         console.log(user);
-        $('#signUp').addClass('hide');
-        $('#logIn').addClass('hide');
+        hidden();
       });
       firebase.auth().onAuthStateChanged(function (user1) {
         if (user) {
@@ -49,10 +48,38 @@ var config = {
           console.log('usuario registrado correctamente');
           }
         });
-          firebase.database().ref('post-comments/' + postId);
+          /*firebase.database().ref('post-comments/' + postId);
       commentsRef.on('child_added', function(data) {
         addCommentElement(postElement, data.key, data.val().text, data.val().author);
+      });*/
+    };
+
+      // Cerrar sesión
+      var btnLogout = $('#logOut'); // #btnLogout
+
+      btnLogout.click(function() {
+        firebase.auth().signOut().then(function() {
+          // Sign-out successful.
+          window.location.href = '';
+        }).catch(function(error) {
+          // An error happened.
+        });
       });
+
+      $(document).ready(function(){
+        $('#logOut').mouseover(function() {
+          $('#logOut').text('Log out');
+        });
+        $('#logOut').mouseout(function() {
+          $('#logOut').html('<i class="fa fa-times" aria-hidden="true"></i>');
+        });
+      });
+
+    function hidden() {
+      $('#signUp').addClass('hide');
+      $('#logIn').addClass('hide');
+      $('#logOut').removeClass('hide');
+      $('#v-pills-favourite-tab').removeClass('hide');
     };
 
     // Registrando con facebook
