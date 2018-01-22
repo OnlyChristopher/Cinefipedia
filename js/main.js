@@ -1,5 +1,5 @@
 // script sidebar toggled
-$('#menu-toggle').click(function (event) {
+$('#menu-toggle').click(function(event) {
   event.preventDefault();
   $('#wrapper').toggleClass('toggled');
 });
@@ -17,7 +17,7 @@ $(document).ready(() => {
   var itemComedy = $('.comedy');
   var itemHorror = $('.horror');
   var itemRomance = $('.romance');
-  var titleModal = $('.title-movie');
+  var titleModal = $('#title-movie');
   var synopsisModal = $('#synopsis');
   var actorsModal = $('#actors');
   var releaseDatesModal = $('#release-dates');
@@ -26,6 +26,7 @@ $(document).ready(() => {
   var trailerMovie = $('#trailer-movie');
   var btnFavorites = $('#add-favorites');
   var dataFavorites = [];
+
   // construir vista incial (seccion HOME) al cargar la página
   function getBestMoviesSectionHome() {
     var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
@@ -38,18 +39,21 @@ $(document).ready(() => {
           moviesHtml += `
         <div class="col-6 col-sm-4 col-md-2">
           <div class="text-center">
-            <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+            <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
             <h5 class="letter-user">${movie.title}</h5>
           </div>
         </div>
       `;
         });
         $(sectionHome).html(moviesHtml);
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
+          sessionStorage.id = id;
+          sessionStorage.nameApi = nameApi;
+          window.location.href = 'movie.html';
           getMovieData(id, nameApi);
         });
       }).catch((err) => {
@@ -92,7 +96,8 @@ $(document).ready(() => {
     };
     console.log(dataFavorites);
   };
-  // inicia cambios
+
+  // creando seccion favoritos 
   var itemFavorite = $('#v-pills-favourite-tab');
   var sectionFavorite = $('#favorite-section');
   itemFavorite.on('click', createSectionFavorites);
@@ -113,7 +118,7 @@ $(document).ready(() => {
             moviesFavoritesHtml = `
             <div class="col-6 col-sm-4 col-md-2">
               <div class="text-center">
-                <img src="http://image.tmdb.org/t/p/w185/${result.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+                <img src="http://image.tmdb.org/t/p/w185/${result.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
                 <h5 class="letter-user">${result.title}</h5>
               </div>
             </div>
@@ -129,7 +134,7 @@ $(document).ready(() => {
             moviesFavoritesHtml = `
             <div class="col-6 col-sm-4 col-md-2">
               <div class="well text-center">
-                <img src="${result.Poster}" class="img-fluid selected-movie" data-id="${result.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
+                <img src="${result.Poster}" class="img-fluid selected-movie" data-id="${result.imdbID}" data-api="omdb>
                 <h5 class="letter-user">${result.Title}</h5>
               </div>
             </div>
@@ -140,7 +145,7 @@ $(document).ready(() => {
     };
     sectionFavorite.html(moviesFavoritesHtml);
   }
-  // termina cambios
+
   // traer todas las peliculas relacionadas a lo que el usuario escribio en el input
   function getMovies(searchText) {
     $.getJSON('http://www.omdbapi.com?s=' + encodeURI(searchText) + '&apikey=bea6c355')
@@ -152,7 +157,7 @@ $(document).ready(() => {
           moviesHtml += `
           <div class="col-6 col-sm-4 col-md-2">
             <div class="well text-center">
-              <img src="${movie.Poster}" class="img-fluid selected-movie" data-id="${movie.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
+              <img src="${movie.Poster}" class="img-fluid selected-movie" data-id="${movie.imdbID}" data-api="omdb">
               <h5 class="letter-user">${movie.Title}</h5>
             </div>
           </div>
@@ -161,11 +166,14 @@ $(document).ready(() => {
 
         $('#home-search').html(moviesHtml);
         console.log($('.selected-movie'));
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
+          sessionStorage.id = id;
+          sessionStorage.nameApi = nameApi;
+          window.location.href = 'movie.html';
           getMovieData(id, nameApi);
         });
       })
@@ -190,18 +198,21 @@ $(document).ready(() => {
           moviesHtml += `
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
-              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
               <h5 class="letter-user">${movie.title}</h5>
             </div>
           </div>
         `;
         });
         $(nameSectionTab).html(moviesHtml);
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
+          sessionStorage.id = id;
+          sessionStorage.nameApi = nameApi;
+          window.location.href = 'movie.html';
           getMovieData(id, nameApi);
         });
       }).catch((err) => {
@@ -252,6 +263,7 @@ $(document).ready(() => {
           $('#view-trailer').css('display', 'block');
           trailerMovie.css('display', 'block');
           trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
+          // vericar si la pelicula ya fue agregada a favoritos
           for (let index = 0; index < dataFavorites.length; index++) {
             if (dataFavorites[index]['id'] === id) {
               btnFavorites.text('Added to Favorites');
@@ -276,6 +288,7 @@ $(document).ready(() => {
           trailerMovie.css('display', 'none');
           btnFavorites.attr('data-id', id);
           btnFavorites.attr('data-api', nameApi);
+          // vericar si la pelicula ya fue agregada a favoritos          
           for (let index = 0; index < dataFavorites.length; index++) {
             if (dataFavorites[index]['id'] === id) {
               btnFavorites.text('Added to Favorites');
@@ -290,4 +303,5 @@ $(document).ready(() => {
     }
   }
   getBestMoviesSectionHome();
+  getMovieData(sessionStorage.id, sessionStorage.nameApi);
 });
