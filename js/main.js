@@ -1,5 +1,5 @@
 // script sidebar toggled
-$('#menu-toggle').click(function (event) {
+$('#menu-toggle').click(function(event) {
   event.preventDefault();
   $('#wrapper').toggleClass('toggled');
 });
@@ -45,7 +45,7 @@ $(document).ready(() => {
       `;
         });
         $(sectionHome).html(moviesHtml);
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -92,7 +92,8 @@ $(document).ready(() => {
     };
     console.log(dataFavorites);
   };
-  // inicia cambios
+
+  // creando seccion favoritos 
   var itemFavorite = $('#v-pills-favourite-tab');
   var sectionFavorite = $('#favorite-section');
   itemFavorite.on('click', createSectionFavorites);
@@ -140,7 +141,7 @@ $(document).ready(() => {
     };
     sectionFavorite.html(moviesFavoritesHtml);
   }
-  // termina cambios
+
   // traer todas las peliculas relacionadas a lo que el usuario escribio en el input
   function getMovies(searchText) {
     $.getJSON('http://www.omdbapi.com?s=' + encodeURI(searchText) + '&apikey=bea6c355')
@@ -161,7 +162,7 @@ $(document).ready(() => {
 
         $('#home-search').html(moviesHtml);
         console.log($('.selected-movie'));
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -197,7 +198,7 @@ $(document).ready(() => {
         `;
         });
         $(nameSectionTab).html(moviesHtml);
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
