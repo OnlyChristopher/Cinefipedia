@@ -17,7 +17,7 @@ $(document).ready(() => {
   var itemComedy = $('.comedy');
   var itemHorror = $('.horror');
   var itemRomance = $('.romance');
-  var titleModal = $('.title-movie');
+  var titleModal = $('#title-movie');
   var synopsisModal = $('#synopsis');
   var actorsModal = $('#actors');
   var releaseDatesModal = $('#release-dates');
@@ -51,6 +51,9 @@ $(document).ready(() => {
           console.log('hice click');
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
+          sessionStorage.id = id;
+          sessionStorage.nameApi = nameApi;
+          window.location.href = 'movie.html';
           getMovieData(id, nameApi);
         });
       }).catch((err) => {
@@ -166,11 +169,11 @@ $(document).ready(() => {
         $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
-          sessionStorage.id = $(this).attr('data-id');
-          sessionStorage.nameApi = $(this).attr('data-api');
-          
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
+          sessionStorage.id = id;
+          sessionStorage.nameApi = nameApi;
+          window.location.href = 'movie.html';
           getMovieData(id, nameApi);
         });
       })
@@ -207,6 +210,9 @@ $(document).ready(() => {
           console.log('hice click');
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
+          sessionStorage.id = id;
+          sessionStorage.nameApi = nameApi;
+          window.location.href = 'movie.html';
           getMovieData(id, nameApi);
         });
       }).catch((err) => {
@@ -257,6 +263,7 @@ $(document).ready(() => {
           $('#view-trailer').css('display', 'block');
           trailerMovie.css('display', 'block');
           trailerMovie.attr('src', youtubeURL + trailerYoutubeKey);
+          // vericar si la pelicula ya fue agregada a favoritos
           for (let index = 0; index < dataFavorites.length; index++) {
             if (dataFavorites[index]['id'] === id) {
               btnFavorites.text('Added to Favorites');
@@ -281,6 +288,7 @@ $(document).ready(() => {
           trailerMovie.css('display', 'none');
           btnFavorites.attr('data-id', id);
           btnFavorites.attr('data-api', nameApi);
+          // vericar si la pelicula ya fue agregada a favoritos          
           for (let index = 0; index < dataFavorites.length; index++) {
             if (dataFavorites[index]['id'] === id) {
               btnFavorites.text('Added to Favorites');
@@ -295,4 +303,5 @@ $(document).ready(() => {
     }
   }
   getBestMoviesSectionHome();
+  getMovieData(sessionStorage.id, sessionStorage.nameApi);
 });

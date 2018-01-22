@@ -1,6 +1,7 @@
 body {
   overflow-x: hidden;
   background-color: #343A40;
+  color: #fff;
 }
 
 #wrapper {
@@ -166,16 +167,8 @@ a:hover {
 
 /* estilos de modal de peliculas */
 
-.modal-body, .close {
-  color: white;
-}
-
-b, .modal-title{
+b, #title-movie{
   color: #47D7AC;
-}
-
-.modal-content{
-  background-color: black;
 }
 
 .modal-body .img-fluid, #add-favorites {
@@ -189,6 +182,7 @@ iframe {
 .favorites-movies {
   background-color: #47D7AC;
 }
+
 @media (min-width: 768px){
 
   iframe {
