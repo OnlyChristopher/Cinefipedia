@@ -26,6 +26,7 @@ $(document).ready(() => {
   var trailerMovie = $('#trailer-movie');
   var btnFavorites = $('#add-favorites');
   var dataFavorites = [];
+
   // construir vista incial (seccion HOME) al cargar la página
   function getBestMoviesSectionHome() {
     var popularMoviesData = 'https://api.themoviedb.org/3/discover/movie?api_key=5076f0f992d07860e10ee70c4f034e5e&sort_by=popularity.desc';
@@ -38,7 +39,7 @@ $(document).ready(() => {
           moviesHtml += `
         <div class="col-6 col-sm-4 col-md-2">
           <div class="text-center">
-            <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+            <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
             <h5 class="letter-user">${movie.title}</h5>
           </div>
         </div>
@@ -114,7 +115,7 @@ $(document).ready(() => {
             moviesFavoritesHtml = `
             <div class="col-6 col-sm-4 col-md-2">
               <div class="text-center">
-                <img src="http://image.tmdb.org/t/p/w185/${result.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+                <img src="http://image.tmdb.org/t/p/w185/${result.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
                 <h5 class="letter-user">${result.title}</h5>
               </div>
             </div>
@@ -130,7 +131,7 @@ $(document).ready(() => {
             moviesFavoritesHtml = `
             <div class="col-6 col-sm-4 col-md-2">
               <div class="well text-center">
-                <img src="${result.Poster}" class="img-fluid selected-movie" data-id="${result.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
+                <img src="${result.Poster}" class="img-fluid selected-movie" data-id="${result.imdbID}" data-api="omdb>
                 <h5 class="letter-user">${result.Title}</h5>
               </div>
             </div>
@@ -153,7 +154,7 @@ $(document).ready(() => {
           moviesHtml += `
           <div class="col-6 col-sm-4 col-md-2">
             <div class="well text-center">
-              <img src="${movie.Poster}" class="img-fluid selected-movie" data-id="${movie.imdbID}" data-toggle="modal" data-api="omdb" data-target=".bd-example-modal-lg">
+              <img src="${movie.Poster}" class="img-fluid selected-movie" data-id="${movie.imdbID}" data-api="omdb">
               <h5 class="letter-user">${movie.Title}</h5>
             </div>
           </div>
@@ -165,6 +166,9 @@ $(document).ready(() => {
         $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
+          sessionStorage.id = $(this).attr('data-id');
+          sessionStorage.nameApi = $(this).attr('data-api');
+          
           var id = $(this).attr('data-id');
           var nameApi = $(this).attr('data-api');
           getMovieData(id, nameApi);
@@ -191,7 +195,7 @@ $(document).ready(() => {
           moviesHtml += `
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
-              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-toggle="modal" data-api="tmdb" data-target=".bd-example-modal-lg">
+              <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
               <h5 class="letter-user">${movie.title}</h5>
             </div>
           </div>
