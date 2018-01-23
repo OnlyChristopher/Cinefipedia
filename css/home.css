@@ -1,6 +1,7 @@
 body {
   overflow-x: hidden;
   background-color: #343A40;
+  color: #fff;
 }
 
 #wrapper {
@@ -155,8 +156,9 @@ a {
   color: #47D7AC
 }
 
-a:hover {
+a:hover, .navbar-dark a{
   color: white;
+  text-decoration: none;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
@@ -166,19 +168,11 @@ a:hover {
 
 /* estilos de modal de peliculas */
 
-.modal-body, .close {
-  color: white;
-}
-
-b, .modal-title{
+b, #title-movie{
   color: #47D7AC;
 }
 
-.modal-content{
-  background-color: black;
-}
-
-.modal-body .img-fluid, #add-favorites {
+#img-modal , #add-favorites {
   width: 100%;
 }
 
@@ -189,6 +183,7 @@ iframe {
 .favorites-movies {
   background-color: #47D7AC;
 }
+
 @media (min-width: 768px){
 
   iframe {
