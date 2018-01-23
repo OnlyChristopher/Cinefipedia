@@ -1,5 +1,5 @@
 // script sidebar toggled
-$('#menu-toggle').click(function(event) {
+$('#menu-toggle').click(function (event) {
   event.preventDefault();
   $('#wrapper').toggleClass('toggled');
 });
@@ -46,7 +46,7 @@ $(document).ready(() => {
       `;
         });
         $(sectionHome).html(moviesHtml);
-        $('.selected-movie').click(function(event) {
+        $('.selected-movie').click(function (event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -166,7 +166,7 @@ $(document).ready(() => {
 
         $('#home-search').html(moviesHtml);
         console.log($('.selected-movie'));
-        $('.selected-movie').click(function(event) {
+        $('.selected-movie').click(function (event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -174,7 +174,7 @@ $(document).ready(() => {
           sessionStorage.id = id;
           sessionStorage.nameApi = nameApi;
           window.location.href = 'movie.html';
-          getMovieData(id, nameApi);
+          // getMovieData(id, nameApi);
         });
       })
       .catch((err) => {
@@ -205,7 +205,7 @@ $(document).ready(() => {
         `;
         });
         $(nameSectionTab).html(moviesHtml);
-        $('.selected-movie').click(function(event) {
+        $('.selected-movie').click(function (event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -222,6 +222,7 @@ $(document).ready(() => {
 
   // funcion para mostrar la informacion de la pelicula seleccionada
   function getMovieData(id, nameApi) {
+    var secionAllCast = $('.v-pills-cast');
     if (nameApi === 'tmdb') {
       var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
@@ -229,6 +230,7 @@ $(document).ready(() => {
       var listCastMovie = [];
       var trailerYoutubeKey;
       var youtubeURL = 'https://www.youtube.com/embed/';
+      var tmdbImagesURL = 'http://image.tmdb.org/t/p/w185/';
       $.getJSON(creditMovieData)
         .then((result) => {
           console.log(result);
@@ -236,7 +238,28 @@ $(document).ready(() => {
             const nameCast = result['cast'][index]['name'];
             listCastMovie.push(nameCast);
           }
+          // obtener seccion all cast
+          var allCastData = result.cast;
+          let movies = result.results;
+          let moviesHtml = '';
+          console.log(allCastData);
+          $.each(allCastData, (index, movie) => {
+            var profileImg = 'http://image.tmdb.org/t/p/w185/' + movie.profile_path;
+            if (!movie.profile_path) {
+              profileImg = '../../assets/images/not-image.jfif';
+            }
+            moviesHtml += `
+          <div class="col-6 col-sm-4 col-md-2">
+            <div class="text-center">
+              <img src="${profileImg}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
+              <h5 class="letter-user">${movie.name}</h5>
+            </div>
+          </div>
+        `; 
+          });
+          $(secionAllCast).html(moviesHtml);
         });
+      // obtener el trailer de la pelicula
       $.getJSON(trailerMovieData)
         .then((result) => {
           console.log(result);
@@ -247,13 +270,15 @@ $(document).ready(() => {
             }
           }
         });
+      // obtener la informacion de la pelicula
       $.getJSON(dataMovie)
         .then((result) => {
           console.log(result);
           listCastMovie = listCastMovie.toString();
           console.log(listCastMovie);
+          // insertar la información obtenida en HTML
           titleModal.text(result.title);
-          imgModal.attr('src', 'http://image.tmdb.org/t/p/w185/' + result.poster_path);
+          imgModal.attr('src', tmdbImagesURL + result.poster_path);
           synopsisModal.text(result.overview);
           actorsModal.text(listCastMovie);
           voteAverageModal.text(result.vote_average);
@@ -302,6 +327,15 @@ $(document).ready(() => {
         });
     }
   }
+
+  function getBehindScenes(id) {
+
+  }
+
+  function getAllCastData(id) {
+
+  }
+
   getBestMoviesSectionHome();
   getMovieData(sessionStorage.id, sessionStorage.nameApi);
 });

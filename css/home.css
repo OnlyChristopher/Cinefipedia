@@ -156,8 +156,9 @@ a {
   color: #47D7AC
 }
 
-a:hover {
+a:hover, .navbar-dark a{
   color: white;
+  text-decoration: none;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
@@ -171,7 +172,7 @@ b, #title-movie{
   color: #47D7AC;
 }
 
-.modal-body .img-fluid, #add-favorites {
+#img-modal , #add-favorites {
   width: 100%;
 }
 
