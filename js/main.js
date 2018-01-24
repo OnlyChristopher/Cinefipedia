@@ -97,7 +97,7 @@ $(document).ready(() => {
     console.log(dataFavorites);
   };
 
-  // creando seccion favoritos 
+  // creando seccion favoritos
   var itemFavorite = $('#v-pills-favourite-tab');
   var sectionFavorite = $('#favorite-section');
   itemFavorite.on('click', createSectionFavorites);
@@ -261,7 +261,7 @@ $(document).ready(() => {
               <h5 class="letter-user">${movie.name}</h5>
             </div>
           </div>
-        `; 
+        `;
           });
           $(secionAllCast).html(castHtml);
         });
@@ -360,7 +360,7 @@ $(document).ready(() => {
           trailerMovie.css('display', 'none');
           btnFavorites.attr('data-id', id);
           btnFavorites.attr('data-api', nameApi);
-          // vericar si la pelicula ya fue agregada a favoritos          
+          // vericar si la pelicula ya fue agregada a favoritos
           for (let index = 0; index < dataFavorites.length; index++) {
             if (dataFavorites[index]['id'] === id) {
               btnFavorites.text('Added to Favorites');
