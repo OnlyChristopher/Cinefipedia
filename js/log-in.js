@@ -246,18 +246,11 @@ function hidden() {
   $('#add-favorites').removeClass('hide');
 };
 
-$('.carousel').carousel({
-  interval: 30000
-});
-
 $(document).ready(function() {
-  setTimeout(function() {
-      $('#one').addClass('hide');
-
-  }, 2000);
+  setTimeout(function firstVideo() {
+      $('#video-placeholder').attr( "src", "https://www.youtube.com/embed/uprrVIIT0G8?start=54&end=122&autoplay=1&loop=1;color=white" );
+      setTimeout(function secondVideo() {
+          $('#video-placeholder').attr( "src", "https://www.youtube.com/embed/3yXWdcjvE-s?start=27&end=93&autoplay=1&loop=1;color=white&amp;playlist=leIrosWRbYQ%2CuprrVIIT0G8&amp;enablejsapi=1&amp;origin=http%3A%2F%2Fdemo.bloguero-ec.com&amp;widgetid=1");
+      }, 69000);
+  }, 65000);
 });
-
-
-/*$('.video').ready(setInterval(function () {
-  $('.video').playVideo();
-},4000);*/
