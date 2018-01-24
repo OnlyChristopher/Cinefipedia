@@ -328,14 +328,6 @@ $(document).ready(() => {
     }
   }
 
-  function getBehindScenes(id) {
-
-  }
-
-  function getAllCastData(id) {
-
-  }
-
   getBestMoviesSectionHome();
   getMovieData(sessionStorage.id, sessionStorage.nameApi);
 });
