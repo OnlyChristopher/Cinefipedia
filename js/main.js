@@ -1,5 +1,5 @@
 // script sidebar toggled
-$('#menu-toggle').click(function (event) {
+$('#menu-toggle').click(function(event) {
   event.preventDefault();
   $('#wrapper').toggleClass('toggled');
 });
@@ -46,7 +46,7 @@ $(document).ready(() => {
       `;
         });
         $(sectionHome).html(moviesHtml);
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -166,7 +166,7 @@ $(document).ready(() => {
 
         $('#home-search').html(moviesHtml);
         console.log($('.selected-movie'));
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -205,7 +205,7 @@ $(document).ready(() => {
         `;
         });
         $(nameSectionTab).html(moviesHtml);
-        $('.selected-movie').click(function (event) {
+        $('.selected-movie').click(function(event) {
           event.preventDefault();
           console.log('hice click');
           var id = $(this).attr('data-id');
@@ -213,7 +213,7 @@ $(document).ready(() => {
           sessionStorage.id = id;
           sessionStorage.nameApi = nameApi;
           window.location.href = 'movie.html';
-          getMovieData(id, nameApi);
+          // getMovieData(id, nameApi);
         });
       }).catch((err) => {
         console.log(err);
@@ -223,14 +223,20 @@ $(document).ready(() => {
   // funcion para mostrar la informacion de la pelicula seleccionada
   function getMovieData(id, nameApi) {
     var secionAllCast = $('.v-pills-cast');
+    var sectionBehindScenes = $('.v-pills-scenes');
+    var sectionRecommendations = $('.v-pills-recommendations');
+    var sectionReviews = $('.v-pills-reviews'); 
     if (nameApi === 'tmdb') {
       var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var trailerMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/videos?api_key=5076f0f992d07860e10ee70c4f034e5e';
+      var similarMoviesData = 'https://api.themoviedb.org/3/movie/' + id + '/similar?api_key=5076f0f992d07860e10ee70c4f034e5e&page=1';
+      var reviewsData = 'https://api.themoviedb.org/3/movie/' + id + '/reviews?api_key=5076f0f992d07860e10ee70c4f034e5e&page=1';
       var listCastMovie = [];
       var trailerYoutubeKey;
       var youtubeURL = 'https://www.youtube.com/embed/';
       var tmdbImagesURL = 'http://image.tmdb.org/t/p/w185/';
+      // obtener los creditos de la pelicula
       $.getJSON(creditMovieData)
         .then((result) => {
           console.log(result);
@@ -241,14 +247,14 @@ $(document).ready(() => {
           // obtener seccion all cast
           var allCastData = result.cast;
           let movies = result.results;
-          let moviesHtml = '';
+          let castHtml = '';
           console.log(allCastData);
           $.each(allCastData, (index, movie) => {
             var profileImg = 'http://image.tmdb.org/t/p/w185/' + movie.profile_path;
             if (!movie.profile_path) {
               profileImg = '../../assets/images/not-image.jfif';
             }
-            moviesHtml += `
+            castHtml += `
           <div class="col-6 col-sm-4 col-md-2">
             <div class="text-center">
               <img src="${profileImg}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
@@ -257,7 +263,7 @@ $(document).ready(() => {
           </div>
         `; 
           });
-          $(secionAllCast).html(moviesHtml);
+          $(secionAllCast).html(castHtml);
         });
       // obtener el trailer de la pelicula
       $.getJSON(trailerMovieData)
@@ -269,6 +275,47 @@ $(document).ready(() => {
               break;
             }
           }
+        });
+      // obtener la seccion de opiniones de la pelicula
+      $.getJSON(reviewsData)
+        .then((result) => {
+          var listReviews = result.results;
+          var reviewsHtml = '';
+          $.each(listReviews, (index, review) => {
+            reviewsHtml += `
+            <p class="col-sm-8"><cite>${review.author}</cite>${review.content}</p>
+            `;
+          });
+          $(sectionReviews).html(reviewsHtml);
+        });
+      // obtener la seccion de peliculas similares
+      $.getJSON(similarMoviesData)
+        .then((result) => {
+          var listSimilarMovies = result.results;
+          var moviesHtml = '';
+          $.each(listSimilarMovies, (index, movie) => {
+            moviesHtml += `
+            <div class="col-6 col-sm-4 col-md-2">
+              <div class="text-center">
+                <img src="http://image.tmdb.org/t/p/w185/${movie.poster_path}" class="img-fluid selected-movie" data-id="${movie.id}" data-api="tmdb">
+                <h5 class="letter-user">${movie.title}</h5>
+              </div>
+            </div>
+          `;
+          });
+          $(sectionRecommendations).html(moviesHtml);
+          $('.selected-movie').click(function(event) {
+            event.preventDefault();
+            console.log('hice click');
+            var id = $(this).attr('data-id');
+            var nameApi = $(this).attr('data-api');
+            sessionStorage.id = id;
+            sessionStorage.nameApi = nameApi;
+            window.location.href = 'movie.html';
+            // getMovieData(id, nameApi);
+          });
+        }).catch((err) => {
+          console.log(err);
         });
       // obtener la informacion de la pelicula
       $.getJSON(dataMovie)
