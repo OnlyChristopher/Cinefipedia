@@ -239,9 +239,25 @@ $(document).ready(function(){
 });
 
 function hidden() {
-$('#signUp').addClass('hide');
-$('#logIn').addClass('hide');
-$('#logOut').removeClass('hide');
-$('#v-pills-favourite-tab').removeClass('hide');
-$('#add-favorites').removeClass('hide');
+  $('#signUp').addClass('hide');
+  $('#logIn').addClass('hide');
+  $('#logOut').removeClass('hide');
+  $('#v-pills-favourite-tab').removeClass('hide');
+  $('#add-favorites').removeClass('hide');
 };
+
+$('.carousel').carousel({
+  interval: 30000
+});
+
+$(document).ready(function() {
+  setTimeout(function() {
+      $('#one').addClass('hide');
+
+  }, 2000);
+});
+
+
+/*$('.video').ready(setInterval(function () {
+  $('.video').playVideo();
+},4000);*/
