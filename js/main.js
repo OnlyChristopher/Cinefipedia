@@ -225,7 +225,9 @@ $(document).ready(() => {
     var secionAllCast = $('.v-pills-cast');
     var sectionBehindScenes = $('.v-pills-scenes');
     var sectionRecommendations = $('.v-pills-recommendations');
-    var sectionReviews = $('.v-pills-reviews'); 
+    var sectionReviews = $('.v-pills-reviews');
+    var youtubeURL = 'https://www.youtube.com/embed/';    
+    var titleMovie ; 
     if (nameApi === 'tmdb') {
       var dataMovie = 'https://api.themoviedb.org/3/movie/' + id + '?api_key=5076f0f992d07860e10ee70c4f034e5e';
       var creditMovieData = 'https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=5076f0f992d07860e10ee70c4f034e5e';
@@ -234,7 +236,6 @@ $(document).ready(() => {
       var reviewsData = 'https://api.themoviedb.org/3/movie/' + id + '/reviews?api_key=5076f0f992d07860e10ee70c4f034e5e&page=1';
       var listCastMovie = [];
       var trailerYoutubeKey;
-      var youtubeURL = 'https://www.youtube.com/embed/';
       var tmdbImagesURL = 'http://image.tmdb.org/t/p/w185/';
       // obtener los creditos de la pelicula
       $.getJSON(creditMovieData)
@@ -288,6 +289,9 @@ $(document).ready(() => {
           });
           $(sectionReviews).html(reviewsHtml);
         });
+
+      // obtener la seccion behind scenes
+      getDataBehindScenes();
       // obtener la seccion de peliculas similares
       $.getJSON(similarMoviesData)
         .then((result) => {
@@ -320,11 +324,10 @@ $(document).ready(() => {
       // obtener la informacion de la pelicula
       $.getJSON(dataMovie)
         .then((result) => {
-          console.log(result);
           listCastMovie = listCastMovie.toString();
-          console.log(listCastMovie);
           // insertar la información obtenida en HTML
-          titleModal.text(result.title);
+          titleMovie = result.title ;
+          titleModal.text(titleMovie);
           imgModal.attr('src', tmdbImagesURL + result.poster_path);
           synopsisModal.text(result.overview);
           actorsModal.text(listCastMovie);
@@ -371,6 +374,23 @@ $(document).ready(() => {
         })
         .catch((err) => {
           console.log(err);
+        });
+    }
+
+    function getDataBehindScenes() {
+      var searchYoutube = encodeURI(titleMovie);      
+      var youtubeApiHttp = 'https://www.googleapis.com/youtube/v3/search?part=id%2Csnippet&maxResults=10&order=relevance&q=' + searchYoutube + '%20behind%20scenes&type=video&videoEmbeddable=true&key=AIzaSyB0aCiCOYadELOxRuF0O_YwzAprTOIRAA8';
+      $.getJSON(youtubeApiHttp)
+        .then((result) => {
+          console.log(result);
+          var listResultVideos = result.items;
+          var behindScenesHtml = '';
+          $.each(listResultVideos, (index, video) => {
+            behindScenesHtml += `
+            
+            `;
+          }
+          );
         });
     }
   }
