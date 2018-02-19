@@ -6,10 +6,6 @@ Cinefipedia te ayuda con la información que necesitas de tus películas favorit
 ## Desarrollado para
 [Laboratoria](http://laboratoria.la)
 
-# Cinefipedia
-
-Cinefipedia te ayuda con la información que necesitas de tus películas favoritas y las que deseas poner en tu lista de pendientes.
-
 ### Objetivo
 Crear un producto relacionado a películas respondiendo a las necesidades del usuario.
 
