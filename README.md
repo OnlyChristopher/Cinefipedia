@@ -1,13 +1,14 @@
-# Cinefipedia
-
+## Cinefipedia
 Cinefipedia te ayuda con la información que necesitas de tus películas favoritas y las que deseas poner en tu lista de pendientes.
 
 ![cinefipedia](https://user-images.githubusercontent.com/32303418/36360379-69619dfc-14f1-11e8-9499-d3bcf4bfed0e.png)
 
-#### Desarrollado para [Laboratoria](http://laboratoria.la)
+## Desarrollado para
+[Laboratoria](http://laboratoria.la)
 
-# **Hackathon-Movie**
+# Cinefipedia
 
+Cinefipedia te ayuda con la información que necesitas de tus películas favoritas y las que deseas poner en tu lista de pendientes.
 
 ### Objetivo
 Crear un producto relacionado a películas respondiendo a las necesidades del usuario.
